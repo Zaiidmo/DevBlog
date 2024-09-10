@@ -1,7 +1,13 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+  class User extends Model {
+    static associate(models) {
+      // Define associations here
+    }
+  }
+  
+  User.init({
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -36,9 +42,10 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
     tableName: 'Users',
+    // Use camelCase for automatically added timestamp fields
     timestamps: true,
-    underscored: true,
+    underscored: false, // Change this to false
   });
-
+  
   return User;
 };

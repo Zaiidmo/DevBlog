@@ -25,6 +25,11 @@ app.get('/', (req, res) => {
   res.render('layout', { title: 'Home', body: 'home' });
 });
 
+// Articles Routes 
+app.get('/articles', (req, res) => {
+  res.render('layout', { title: 'Articles', body: 'articles' });
+});
+
 // Database connection using environment variables
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
   host: process.env.DB_HOST || 'localhost',

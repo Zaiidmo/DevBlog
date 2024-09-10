@@ -22,7 +22,7 @@ app.use('/auth', userrouter);
 
 // Root route
 app.get('/', (req, res) => {
-  res.render('layout', { title: 'Home', body: 'home' });
+  res.render('layout', { title: 'DevBlog', body: 'home' });
 });
 
 // Articles Routes 

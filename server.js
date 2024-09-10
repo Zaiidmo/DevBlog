@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 // app.use('/auth', userrouter);
 
 
-const sequelize = new Sequelize('devblog', 'root', null, {
+const sequelize = new Sequelize('devblog', 'vlpha', '1969', {
   host: 'localhost',
   dialect: 'mysql',
   port: 3306,

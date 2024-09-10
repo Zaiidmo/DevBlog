@@ -1,50 +1,51 @@
 'use strict';
 
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Comments', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
+module.exports = (sequelize, DataTypes) => {
+  const Comment = sequelize.define('Comment', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
+    content: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Users', // References the 'Users' table
+        key: 'id',
       },
-      content: {
-        type: Sequelize.TEXT,
-        allowNull: false,
+    },
+    articleId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Articles', // References the 'Articles' table
+        key: 'id',
       },
-      userId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Users', // References the 'Users' table
-          key: 'id', // References the 'id' column in 'Users'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
-      articleId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Articles', // References the 'Articles' table
-          key: 'id', // References the 'id' column in 'Articles'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
-    });
-  },
+    },
+  }, {
+    tableName: 'Comments',
+    timestamps: true, // Automatically manages createdAt and updatedAt fields
+  });
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Comments');
-  },
+  // Associations
+  Comment.associate = function(models) {
+    Comment.belongsTo(models.User, { 
+      foreignKey: 'userId', 
+      onDelete: 'CASCADE', 
+      onUpdate: 'CASCADE',
+    });
+    Comment.belongsTo(models.Article, { 
+      foreignKey: 'articleId', 
+      onDelete: 'CASCADE', 
+      onUpdate: 'CASCADE',
+    });
+  };
+
+  return Comment;
 };

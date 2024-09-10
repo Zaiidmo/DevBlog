@@ -9,7 +9,15 @@
           <div class="mb-12">
             <h3 class="text-3xl font-bold text-yellow-400">Create an account</h3>
           </div>
-
+          <% if (locals.errors && errors.length > 0) { %>
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+              <ul class="list-disc list-inside">
+                <% errors.forEach(function(error) { %>
+                  <li><%= error.msg %></li>
+                <% }); %>
+              </ul>
+            </div>
+          <% } %>
           <div>
             <label class="text-white text-xs block mb-2">Full Name</label>
             <div class="relative flex items-center">

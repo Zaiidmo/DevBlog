@@ -1,5 +1,5 @@
 
-const isAuthenticated = require('./middleware/isAuthenticated');
+const isAuthenticated = require('../middleware/isAuthenticated');
 
 router.get('/logout', isAuthenticated, (res, req) =>
 {

@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 const path = require('path');
 const session = require('express-session');
 const userrouter = require('./router/auth');
-
+const forgotPasswordRouter = require('./router/resetPassword');
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -21,6 +21,8 @@ app.use(session({
 }));
 
 app.use('/auth', userrouter);
+// app.use('/auth', forgotPasswordRouter);
+
 
 app.get('/', (req, res) => {
   res.render('layout', { title: 'Home', body: 'home', user: req.session.user });

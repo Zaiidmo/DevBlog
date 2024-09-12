@@ -6,7 +6,12 @@ module.exports = {
     './public/css/**/*.css',  
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'poppins': 'poppins',
+        'logo': 'Kaushan Script'
+      },
+    },
   },
   plugins: [],
 }

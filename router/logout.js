@@ -1,4 +1,16 @@
-router.post('/logout', async (res, req) =>
+
+const isAuthenticated = require('../middleware/isAuthenticated');
+
+router.get('/logout', isAuthenticated, (res, req) =>
 {
-    req.session
-})
+    req.session.destroy((err) =>
+    {
+        if(err){
+            console.log('Error destroying session:', err);
+            return res.status(500).send('there was an error');
+        }
+        res.redirect('/');
+    });
+});
+
+module.exports = router;

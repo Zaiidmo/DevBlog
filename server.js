@@ -6,6 +6,7 @@ const session = require("express-session");
 const userrouter = require("./router/auth");
 const forgotPasswordRouter = require('./router/resetPassword');
 const articleRouter = require("./router/article");
+const profileRouter = require('./router/profile');
 const app = express();
 
 // Set up view engine
@@ -34,8 +35,8 @@ app.use(
 app.use("/auth", userrouter);
 app.use('/auth', forgotPasswordRouter);
 app.use("/articles", articleRouter);
+app.use("/profile", profileRouter);
 app.use("/comments", require("./routes/commentRoutes"));
-
 app.get("/", (req, res) => {
   res.render("layout", { title: "Home", body: "home" });
 });

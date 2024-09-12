@@ -1,46 +1,42 @@
 'use strict';
 
-module.exports = {
-  up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Articles', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
+module.exports = (sequelize, DataTypes) => {
+  const Article = sequelize.define('Article', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    content: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Users', // References the 'Users' table
+        key: 'id',
       },
-      title: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      content: {
-        type: Sequelize.TEXT,
-        allowNull: false,
-      },
-      userId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Users', // Ensure 'Users' matches your model name
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW, // Ensure a default value is set
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.NOW, // Ensure a default value is set
-      },
-    });
-  },
+    },
+  }, {
+    tableName: 'Articles',
+    timestamps: true, // Ensures createdAt and updatedAt fields are automatically managed
+  });
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Articles');
-  },
+  // Associations
+  Article.associate = function(models) {
+    Article.belongsTo(models.User, { 
+      foreignKey: 'userId', 
+      onDelete: 'CASCADE', 
+      onUpdate: 'CASCADE'
+    });
+  };
+
+  return Article;
 };

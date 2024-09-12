@@ -43,8 +43,10 @@ app.use('/comments', require('./routes/commentRoutes'));
 // Database connection using environment variables
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
   host: process.env.DB_HOST || 'localhost',
-  res.render('layout', { title: 'Home', body: 'home', user: req.session.user });
+  dialect: 'mysql',
+  port: process.env.DB_PORT || 3306,
 });
+
 
 // Test database connection
 sequelize

@@ -21,7 +21,7 @@ app.use(session({
 }));
 
 app.use('/auth', userrouter);
-// app.use('/auth', forgotPasswordRouter);
+app.use('/auth', forgotPasswordRouter);
 
 
 app.get('/', (req, res) => {

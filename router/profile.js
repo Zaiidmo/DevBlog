@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
        }
  
        // Render the profile page
-       res.render("layout", { title: "Profile", body: "profile", user });
+       res.render("layout", { title: "Profile", body: "profile", user,currentUser: req.user });
     } catch (error) {
        console.error("Error fetching user:", error); 
        res.status(500).json({ error: 'Server error' });

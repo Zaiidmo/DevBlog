@@ -1,4 +1,4 @@
-<div class="bg-[#0C172C] w-full h-full mx-auto py-12">
+<div class="bg-[#0C172C] w-full md:h-screen h-full mx-auto py-12">
     <div class="container mx-auto py-8 h-full max-w-screen-xl px-4 pt-12">
         <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4 h-full">
             <div class="col-span-4 sm:col-span-3">
@@ -7,29 +7,24 @@
                         <img src="<%= user.profilePicture || 'https://randomuser.me/api/portraits/men/94.jpg' %>" class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
                         </img>
                         <h1 class="text-xl font-bold text-white"><%= user.username %></h1>
-                        <p class="text-white"><%= user.jobTitle || 'Software Developer' %></p>
+                        <p class="text-white"><%= user.jobTitle || 'developeur full stack' %></p>
                         <a href="mailto:<%= user.email %>" class="text-yellow-400"><%= user.email %></a>
 
                         <div class="mt-6 flex flex-wrap gap-4 justify-center">
-                            <a href="#" class="text-black bg-yellow-400 hover:bg-transparent hover:border border-yellow-400 hover:text-white py-2 px-4 rounded">Contact</a>
+                             <!-- Conditionally render the Edit Profile button -->
+                        <% if (1 === user.id) { %>
+                            <button id="openContactForm" class="text-black bg-yellow-400 hover:bg-transparent hover:border border-yellow-400 hover:text-white py-2 px-4 rounded mt-4">
+                                Edit Profile
+                            </button>
+                        <% } %>
                             <a href="<%= user.resumeLink || '#' %>" class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded">Resume</a>
                         </div>
-                    </div>
-                    <hr class="my-6 border-t border-gray-300">
-                    <div class="flex flex-col">
-                        <span class="text-yellow-400 uppercase font-bold tracking-wider mb-2">Skills</span>
-                        <ul>
-                            <% if (user.skills && user.skills.length > 0) { %>
-                                <% user.skills.forEach(function(skill) { %>
-                                    <li class="mb-2 text-white"><%= skill %></li>
-                                <% }); %>
-                            <% } else { %>
-                                <li class="text-white">No skills listed</li>
-                            <% } %>
-                        </ul>
+                        
+              
                     </div>
                 </div>
             </div>
+
             <div class="col-span-4 sm:col-span-9">
                 <div class="bg-gray-800 shadow rounded-lg p-6">
                     <h2 class="text-xl font-bold mb-4 text-yellow-400">About Me</h2>
@@ -39,40 +34,76 @@
                         <p class="text-white">Not available</p>
                     <% } %>
 
-                    <h3 class="font-semibold text-center mt-3 -mb-2 text-yellow-400">Find me on</h3>
+                    <h2 class="text-xl font-bold mt-6 mb-4 text-yellow-400">Skills</h2>
+                    <ul>
+                        <% if (user.skills && user.skills.length > 0) { %>
+                            <% user.skills.forEach(function(skill) { %>
+                                <li class="mb-2 text-white"><%= skill %></li>
+                            <% }); %>
+                        <% } else { %>
+                            <li class="text-white">No skills listed</li>
+                        <% } %>
+                    </ul>
+
+                    <h2 class="text-xl font-bold mt-6 mb-4 text-yellow-400">Social Media</h2>
                     <div class="flex justify-center items-center gap-6 my-6">
                         <% if (user.socialLinks && user.socialLinks.length > 0) { %>
                             <% user.socialLinks.forEach(function(link) { %>
-                                <a class="text-white hover:text-orange-600" aria-label="Visit <%= link.platform %>" href="<%= link.url %>" target="_blank">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 <%= link.svgViewBox %>" class="h-6">
-                                        <path fill="currentColor" d="<%= link.svgPath %>"></path>
-                                    </svg>
+                                <a class="text-white hover:text-orange-600" href="<%= link.url %>" target="_blank">
+                                    <%= link.platform %>
                                 </a>
                             <% }); %>
                         <% } else { %>
                             <p class="text-white">No social links available</p>
                         <% } %>
                     </div>
-
-                    <h2 class="text-xl font-bold mt-6 mb-4 text-yellow-400">Articles</h2>
-                    <% if (user.articles && user.articles.length > 0) { %>
-                        <% user.articles.forEach(function(article) { %>
-                            <div class="mb-6">
-                                <div class="flex justify-between flex-wrap gap-2 w-full">
-                                    <span class="text-white font-bold"><%= article.title %></span>
-                                    <p>
-                                        <span class="text-white mr-2">at <%= article.company %></span>
-                                        <span class="text-white"><%= article.dates %></span>
-                                    </p>
-                                </div>
-                                <p class="mt-2 text-white"><%= article.description %></p>
-                            </div>
-                        <% }); %>
-                    <% } else { %>
-                        <p class="text-white">No articles available</p>
-                    <% } %>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for updating profile -->
+<div id="contactFormModal" class="fixed z-10 inset-0 overflow-y-auto mt-12 hidden ">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-gray-700 w-1/2 p-6 rounded shadow-md">
+            <div class="flex justify-end">
+                <!-- Close Button -->
+                <button id="closeContactForm" class="text-white hover:text-yellow-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <h2 class="text-2xl font-bold mb-4">Update Profile</h2>
+
+            <form action="/update-profile" method="post">
+                <div class="mb-4">
+                    <label for="username" class="block text-white text-sm font-bold mb-2">Username</label>
+                    <input type="text" id="username" name="username" value="<%= user.username %>"
+                           class="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="jobTitle" class="block text-white text-sm font-bold mb-2">Job Title</label>
+                    <input type="text" id="jobTitle" name="jobTitle" value="<%= user.jobTitle %>"
+                           class="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="aboutMe" class="block text-white text-sm font-bold mb-2">About Me</label>
+                    <textarea id="aboutMe" name="aboutMe" class="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"><%= user.aboutMe %></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="socialLinks" class="block text-white text-sm font-bold mb-2">Social Media Links</label>
+                    <textarea id="socialLinks" name="socialLinks" class="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"><%= JSON.stringify(user.socialLinks || [], null, 2) %></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="skills" class="block text-white text-sm font-bold mb-2">Skills</label>
+                    <textarea id="skills" name="skills" class="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"><%= JSON.stringify(user.skills || [], null, 2) %></textarea>
+                </div>
+                <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">
+                    Save Changes
+                </button>
+            </form>
         </div>
     </div>
 </div>

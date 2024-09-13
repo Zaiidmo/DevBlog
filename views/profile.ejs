@@ -1,40 +1,77 @@
-<div class="bg-gray-100"></div>
-    <div class="container mx-auto py-8">
-        <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
+<div class="bg-[#0C172C] w-full h-full mx-auto py-12">
+    <div class="container mx-auto py-8 h-full max-w-screen-xl px-4 pt-12">
+        <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4 h-full">
             <div class="col-span-4 sm:col-span-3">
-                <div class="bg-white shadow rounded-lg p-6">
+                <div class="bg-gray-800 shadow rounded-lg p-6">
                     <div class="flex flex-col items-center">
-                        <img src="<%= user.avatar%>" class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0" />
-                     
-                        <h1 class="text-xl font-bold"><%= user.username %></h1>
-                        <p class="text-gray-700">Devloper</p>
+                        <img src="<%= user.profilePicture || 'https://randomuser.me/api/portraits/men/94.jpg' %>" class="w-32 h-32 bg-gray-300 rounded-full mb-4 shrink-0">
+                        </img>
+                        <h1 class="text-xl font-bold text-white"><%= user.username %></h1>
+                        <p class="text-white"><%= user.jobTitle || 'Software Developer' %></p>
+                        <a href="mailto:<%= user.email %>" class="text-yellow-400"><%= user.email %></a>
+
                         <div class="mt-6 flex flex-wrap gap-4 justify-center">
-                            <a href="" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Contact</a>
-                            <a href="" class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded">Resume</a>
+                            <a href="#" class="text-black bg-yellow-400 hover:bg-transparent hover:border border-yellow-400 hover:text-white py-2 px-4 rounded">Contact</a>
+                            <a href="<%= user.resumeLink || '#' %>" class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded">Resume</a>
                         </div>
                     </div>
                     <hr class="my-6 border-t border-gray-300">
                     <div class="flex flex-col">
-                        <span class="text-gray-700 uppercase font-bold tracking-wider mb-2">Skills</span>
-                       
+                        <span class="text-yellow-400 uppercase font-bold tracking-wider mb-2">Skills</span>
+                        <ul>
+                            <% if (user.skills && user.skills.length > 0) { %>
+                                <% user.skills.forEach(function(skill) { %>
+                                    <li class="mb-2 text-white"><%= skill %></li>
+                                <% }); %>
+                            <% } else { %>
+                                <li class="text-white">No skills listed</li>
+                            <% } %>
+                        </ul>
                     </div>
                 </div>
             </div>
             <div class="col-span-4 sm:col-span-9">
-                <div class="bg-white shadow rounded-lg p-6">
-                    <h2 class="text-xl font-bold mb-4">About Me</h2>
-                    <p class="text-gray-700"></p>
+                <div class="bg-gray-800 shadow rounded-lg p-6">
+                    <h2 class="text-xl font-bold mb-4 text-yellow-400">About Me</h2>
+                    <% if (user.aboutMe) { %>
+                        <p class="text-white"><%= user.aboutMe %></p>
+                    <% } else { %>
+                        <p class="text-white">Not available</p>
+                    <% } %>
 
-                    <h3 class="font-semibold text-center mt-3 -mb-2">Find me on</h3>
+                    <h3 class="font-semibold text-center mt-3 -mb-2 text-yellow-400">Find me on</h3>
                     <div class="flex justify-center items-center gap-6 my-6">
-                     
-                          
-                     
+                        <% if (user.socialLinks && user.socialLinks.length > 0) { %>
+                            <% user.socialLinks.forEach(function(link) { %>
+                                <a class="text-white hover:text-orange-600" aria-label="Visit <%= link.platform %>" href="<%= link.url %>" target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 <%= link.svgViewBox %>" class="h-6">
+                                        <path fill="currentColor" d="<%= link.svgPath %>"></path>
+                                    </svg>
+                                </a>
+                            <% }); %>
+                        <% } else { %>
+                            <p class="text-white">No social links available</p>
+                        <% } %>
                     </div>
 
-                    <h2 class="text-xl font-bold mt-6 mb-4">Experience</h2>
-                   
-             
+                    <h2 class="text-xl font-bold mt-6 mb-4 text-yellow-400">Articles</h2>
+                    <% if (user.articles && user.articles.length > 0) { %>
+                        <% user.articles.forEach(function(article) { %>
+                            <div class="mb-6">
+                                <div class="flex justify-between flex-wrap gap-2 w-full">
+                                    <span class="text-white font-bold"><%= article.title %></span>
+                                    <p>
+                                        <span class="text-white mr-2">at <%= article.company %></span>
+                                        <span class="text-white"><%= article.dates %></span>
+                                    </p>
+                                </div>
+                                <p class="mt-2 text-white"><%= article.description %></p>
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <p class="text-white">No articles available</p>
+                    <% } %>
+                </div>
             </div>
         </div>
     </div>

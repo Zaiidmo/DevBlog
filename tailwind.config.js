@@ -10,7 +10,7 @@ module.exports = {
       fontFamily: {
         'poppins': 'poppins',
         'logo': 'Kaushan Script',
-        'bruno': 'Bruno Ace',
+        'bruno': 'Bruno Ace SC',
       },
     },
   },

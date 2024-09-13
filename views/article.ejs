@@ -1,11 +1,21 @@
 <section class="pt-32 bg-gray-900 h-screen overflow-auto">
+    <div class="flex justify-center items-center">
+        <img
+        class="h-96 object-cover"
+        src="/images/articles-hero.png"
+        alt="Article's cover"
+        />
+    </div>
   <div class="gap-6 items-center py-8 px-4 mx-auto max-w-screen-xl lg:px-6">
-    <div class="flex justify-between">
+    <div class="flex flex-col gap-3 md:gap-5 lg:gap-8">
       <h1
         class="text-4xl md:text-5xl lg:text-6xl w-full font-bruno text-center text-white"
       >
         Article's Title
       </h1>
+      <p class="text-gray-300 text-center font-poppins text-lg">
+        Description ................................
+      </p>
     </div>
   </div>
   <div
@@ -24,44 +34,6 @@
     </div>
     <div class="col-span-1 flex flex-col gap-8 items-start">
       <div class="flex flex-col gap-4 justify-between">
-        <div class="flex justify-start items-center gap-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="#ffffff"
-              d="M22 2.25h-3.25V.75a.75.75 0 0 0-1.5-.001V2.25h-4.5V.75a.75.75 0 0 0-1.5-.001V2.25h-4.5V.75a.75.75 0 0 0-1.5-.001V2.25H2a2 2 0 0 0-2 1.999v17.75a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V4.249a2 2 0 0 0-2-1.999M22.5 22a.5.5 0 0 1-.499.5H2a.5.5 0 0 1-.5-.5V4.25a.5.5 0 0 1 .5-.499h3.25v1.5a.75.75 0 0 0 1.5.001V3.751h4.5v1.5a.75.75 0 0 0 1.5.001V3.751h4.5v1.5a.75.75 0 0 0 1.5.001V3.751H22a.5.5 0 0 1 .499.499z"
-            />
-            <path
-              fill="#ffffff"
-              d="M5.25 9h3v2.25h-3zm0 3.75h3V15h-3zm0 3.75h3v2.25h-3zm5.25 0h3v2.25h-3zm0-3.75h3V15h-3zm0-3.75h3v2.25h-3zm5.25 7.5h3v2.25h-3zm0-3.75h3V15h-3zm0-3.75h3v2.25h-3z"
-            />
-          </svg>
-          <p class="text-white font-poppins text-lg">
-            {{ $event->date }} || {{ $event->time}}
-          </p>
-        </div>
-        <div class="flex justify-between gap-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="#ffffff"
-              d="M22 2.25h-3.25V.75a.75.75 0 0 0-1.5-.001V2.25h-4.5V.75a.75.75 0 0 0-1.5-.001V2.25h-4.5V.75a.75.75 0 0 0-1.5-.001V2.25H2a2 2 0 0 0-2 1.999v17.75a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V4.249a2 2 0 0 0-2-1.999M22.5 22a.5.5 0 0 1-.499.5H2a.5.5 0 0 1-.5-.5V4.25a.5.5 0 0 1 .5-.499h3.25v1.5a.75.75 0 0 0 1.5.001V3.751h4.5v1.5a.75.75 0 0 0 1.5.001V3.751h4.5v1.5a.75.75 0 0 0 1.5.001V3.751H22a.5.5 0 0 1 .499.499z"
-            />
-            <path
-              fill="#ffffff"
-              d="M5.25 9h3v2.25h-3zm0 3.75h3V15h-3zm0 3.75h3v2.25h-3zm5.25 0h3v2.25h-3zm0-3.75h3V15h-3zm0-3.75h3v2.25h-3zm5.25 7.5h3v2.25h-3zm0-3.75h3V15h-3zm0-3.75h3v2.25h-3z"
-            />
-          </svg>
-          <p class="text-white font-poppins text-lg">{{ $remaining_time }}</p>
-        </div>
       </div>
     </div>
   </div>

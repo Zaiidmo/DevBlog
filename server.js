@@ -8,6 +8,7 @@ const forgotPasswordRouter = require('./router/resetPassword');
 const articleRouter = require("./router/article");
 const profileRouter = require('./router/profile');
 const app = express();
+const bodyParser = require("body-parser");
 
 // Set up view engine
 

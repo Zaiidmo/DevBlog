@@ -29,31 +29,41 @@ router.get('/', async (req, res) => {
  
   
 //update profile
-router.put(
+router.post(
    '/update',
    [
-    check('username').notEmpty().withMessage('enter votre usernme'),
-    check('email').isEmail().withMessage('enter votre email'),
-   ] ,
-   async(req, res)=>{
-    const errors =validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(400).json({errors: errors.array()});
-    }
-    try{
-        const{ username,email,password,avatar}=re.body;
-        const user= await user.findByPk(req.user.id);
-  
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-          }
-     user.username = username;
-      user.email = email;
-      user.password = password;
-      await user.save();
-      res.json({ message: 'Profile updated successfully', user });
-    } catch (error) {
-        res.status(500).json({ error: 'Server error' });
-      }
-});
-module.exports = router;
+     check('username').notEmpty().withMessage('Please enter your username'),
+     check('email').isEmail().withMessage('Please enter a valid email'),
+   ],
+   async (req, res) => {
+     const errors = validationResult(req);
+     if (!errors.isEmpty()) {
+       return res.status(400).json({ errors: errors.array() });
+     }
+ 
+     try {
+       const { username, email, password, avatar, aboutMe, socialMedia, skills } = req.body;
+       const user = await User.findByPk(2);
+ 
+       if (!user) {
+         return res.status(404).json({ error: 'User not found' });
+       }
+ 
+       user.username = username;
+       user.email = email;
+       if (password) user.password = password; 
+       user.avatar = avatar;
+       user.aboutMe = aboutMe;
+       user.socialMedia = socialMedia; 
+       user.skills = skills; 
+ 
+       await user.save();
+      //  res.json({ message: 'Profile updated successfully', user });
+       res.redirect(`/profile/#`)
+     } catch (error) {
+       res.status(500).json({ error: 'Server error' });
+     }
+   }
+ );
+ 
+ module.exports = router;

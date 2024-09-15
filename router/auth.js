@@ -121,6 +121,9 @@ router.post('/login', validateLogin, async (req, res) => {
       email: user.email
     };
 
+    console.log(req.session.user);
+    
+
     res.redirect('/');
   } catch (error) {
     console.error(error);

@@ -81,8 +81,27 @@ router.post('/creating', isAuthenticated, upload.single('poster'), async (req, r
 });
 
 // Get article by id
-router.get("/:id", (req, res) => {
-  res.render("layout", { title: "Article", body: "article" });
+router.get("/:id", async (req, res) => {
+  try {
+    // Fetch the article by ID
+    const article = await Article.findByPk(req.params.id);
+
+    // Check if the article exists
+    if (!article) {
+      return res.status(404).send('Article not found');
+    }
+
+    // Render the single article view with the article data
+    res.render("layout", {
+      title: article.title,
+      body: "article",
+      article // Pass the article data to the view
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
 });
+
 
 module.exports = router;

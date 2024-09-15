@@ -77,11 +77,11 @@
     <% articles.forEach(article => { %>
     <div
       class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <a href="articles/<%= article.id %>">
+      <a href="/articles/<%= article.id %>">
         <img class="rounded-t-lg" src="<%= article.poster %>" alt="" />
       </a>
       <div class="p-5">
-        <a href="articles/<%= article.id %>">
+        <a href="/articles/<%= article.id %>">
           <h5
             class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
           >
@@ -92,7 +92,7 @@
           <%= article.description %>
         </p>
         <a
-          href="articles/<%= article.id %>"
+          href="/articles/<%= article.id %>"
           class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-black bg-yellow-400 rounded-lg hover:bg-yellow-800 "
         >
           Read more

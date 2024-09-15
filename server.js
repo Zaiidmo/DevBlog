@@ -7,6 +7,7 @@ const userrouter = require("./router/auth");
 const forgotPasswordRouter = require('./router/resetPassword');
 const articleRouter = require("./router/article");
 const profileRouter = require('./router/profile');
+const avatar = require('./router/uploadAvatar');
 const app = express();
 const bodyParser = require("body-parser");
 
@@ -33,10 +34,11 @@ app.use(
 );
 
 // Root route
+app.use("/profile", profileRouter);
+app.use("/", avatar);
 app.use("/auth", userrouter);
 app.use('/auth', forgotPasswordRouter);
 app.use("/articles", articleRouter);
-app.use("/profile", profileRouter);
 app.use("/comments", require("./routes/commentRoutes"));
 app.get("/", (req, res) => {
   res.render("layout", { title: "Home", body: "home" });

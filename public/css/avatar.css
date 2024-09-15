@@ -1,0 +1,19 @@
+.avatar-wrapper {
+    position: relative;
+    width: 128px; /* Width of the avatar */
+    height: 128px; /* Height of the avatar */
+}
+
+.avatar-wrapper img {
+    border-radius: 50%;
+}
+
+.avatar-wrapper label {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}

@@ -98,5 +98,30 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// DELETE - delete article by id
+router.delete("/:id", isAuthenticated, async (req, res) => {
+  const userId = req.session.user.id;
+
+  try {
+    
+    const article = await Article.findByPk(req.params.id);
+
+    if (!article) {
+      return res.status(404).send("Article not found");
+    }
+
+    // Check if the user is the author of the article
+    if (article.userId !== userId) {
+      return res.status(403).send("You are not authorized to delete this article");
+    }
+
+    await article.destroy();
+    console.log("Article deleted successfully");
+    res.status(200).json({ message: "Article deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting article:", err);
+    res.status(500).json({ message: err.message });
+  }
+});
 
 module.exports = router;

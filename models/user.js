@@ -4,7 +4,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // Define associations here
+      
     }
   }
   
@@ -38,6 +38,20 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isUrl: true,
       },
+    },
+    aboutMe: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    skills: {
+      type: DataTypes.JSON, 
+      allowNull: true,
+      defaultValue: []
+    },
+    socialMedia: {
+      type: DataTypes.JSON, 
+      allowNull: true,
+      defaultValue: []
     },
   }, {
     sequelize,

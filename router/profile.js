@@ -6,13 +6,19 @@ const {check, validationResult }=require('express-validator');
 // get profile
 router.get('/', async (req, res) => {
     try {
-       const user = await User.findByPk(1); 
+       const user = await User.findByPk(2); 
        if (!user) {
           console.log("User not found");
           return res.status(404).json({ error: 'User not found' });
        }
  
        // Render the profile page
+       if (typeof user.skills === 'string') {
+         user.skills = JSON.parse(user.skills);
+       }
+       if (typeof user.socialMedia === 'string') {
+         user.socialMedia = JSON.parse(user.socialMedia);
+       }
        res.render("layout", { title: "Profile", body: "profile", user,currentUser: req.user });
     } catch (error) {
        console.error("Error fetching user:", error); 

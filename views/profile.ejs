@@ -12,7 +12,7 @@
 
                         <div class="mt-6 flex flex-wrap gap-4 justify-center">
                              <!-- Conditionally render the Edit Profile button -->
-                        <% if (1 === user.id) { %>
+                        <% if (2 === user.id) { %>
                             <button id="openContactForm" class="text-black bg-yellow-400 hover:bg-transparent hover:border border-yellow-400 hover:text-white py-2 px-4 rounded mt-4">
                                 Edit Profile
                             </button>
@@ -36,26 +36,27 @@
 
                     <h2 class="text-xl font-bold mt-6 mb-4 text-yellow-400">Skills</h2>
                     <ul>
-                        <% if (user.skills && user.skills.length > 0) { %>
-                            <% user.skills.forEach(function(skill) { %>
-                                <li class="mb-2 text-white"><%= skill %></li>
-                            <% }); %>
+                        <% if (user.skills && Array.isArray(user.skills) && user.skills.length > 0) { %>
+                          <% user.skills.forEach(function(skill) { %>
+                            <li class="mb-2 text-white"><%= skill %></li>
+                          <% }); %>
                         <% } else { %>
-                            <li class="text-white">No skills listed</li>
+                          <li class="mb-2 text-white">No skills listed</li>
                         <% } %>
-                    </ul>
+                      </ul>
+                      
 
                     <h2 class="text-xl font-bold mt-6 mb-4 text-yellow-400">Social Media</h2>
                     <div class="flex justify-center items-center gap-6 my-6">
-                        <% if (user.socialLinks && user.socialLinks.length > 0) { %>
-                            <% user.socialLinks.forEach(function(link) { %>
-                                <a class="text-white hover:text-orange-600" href="<%= link.url %>" target="_blank">
-                                    <%= link.platform %>
-                                </a>
-                            <% }); %>
-                        <% } else { %>
-                            <p class="text-white">No social links available</p>
-                        <% } %>
+                        <% if (user.socialMedia && typeof user.socialMedia === 'object') { %>
+                            <% for (const [platform, url] of Object.entries(user.socialMedia)) { %>
+                              <a class="text-white hover:text-orange-600" href="<%= url %>" target="_blank">
+                                <%= platform %>
+                              </a>
+                            <% } %>
+                          <% } else { %>
+                            <p>No social media links</p>
+                          <% } %>
                     </div>
                 </div>
             </div>

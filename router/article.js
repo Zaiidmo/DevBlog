@@ -84,17 +84,19 @@ router.post('/creating', isAuthenticated, upload.single('poster'), async (req, r
 router.get("/:id", async (req, res) => {
   try {
     const article = await Article.findByPk(req.params.id, {
-      include: User // Include User model to get the author's information
+      include: User // Assuming you're including the User model
     });
-    if (article) {
-      res.render("layout", { title: "Article", body: "article", article });
-    } else {
-      res.status(404).send('Article not found');
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Server Error');
+
+    res.render("layout", {
+      title: "Article",
+      body: "article",
+      article: article, // Pass the article data
+      user: req.session.user, // Pass the session user explicitly
+    });
+  } catch (err) {
+    res.status(500).send(err.message);
   }
 });
+
 
 module.exports = router;

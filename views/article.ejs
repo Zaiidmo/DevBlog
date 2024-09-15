@@ -26,14 +26,28 @@
       class="grid grid-cols-2 md:grid-cols-4 gap-4 border-y w-full border-gray-700 border-1 py-2"
     >
       <div
-        class="flex justify-start items-center gap-4 col-span-1 md:col-span-2"
+        class="w-full justify-between flex items-center gap-4 col-span-1 md:col-span-2"
       >
-        <img class="rounded-full w-8" src="/images/logo.png" alt="User photo" />
-        <div class="flex flex-col justify-between">
-          <p class="text-gray-400 font-poppins text-xs"><%= article.User ? article.User.username : 'Unknown' %></p>
-          <p class="text-gray-400 font-poppins text-xs">
-            <%= article.updatedAt %>
-          </p>
+        <div class="flex justify-start items-center gap-4">
+          <img
+            class="rounded-full w-8"
+            src="/images/logo.png"
+            alt="User photo"
+          />
+          <div class="flex flex-col justify-between">
+            <p class="text-gray-400 font-poppins text-xs">
+              <%= article.User ? article.User.username : 'Unknown' %>
+            </p>
+            <p class="text-gray-400 font-poppins text-xs">
+              <%= article.updatedAt %>
+            </p>
+          </div>
+        </div>
+        <div>
+          <% if (user && user.id === article.userId) { %>
+            <a href="/articles/<%= article.id %>/edit" class="text-white">Edit</a>
+            <a href="/articles/<%= article.id %>/delete" class="text-white">Delete</a>
+          <% } %>
         </div>
       </div>
       <div class="flex items-center justify-between gap-4 w-full col-span-2">

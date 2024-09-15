@@ -7,7 +7,7 @@ const isAuthenticated = require('../middleware/isAuthenticated'); // Require the
 
 // Set up multer for file uploads
 const storage = multer.diskStorage({
-  destination: './public/articles/', // Directory to save files
+  destination: path.join(__dirname, '../public/articles/'), // Directory to save files
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   }
@@ -32,10 +32,18 @@ function checkFileType(file, cb) {
     cb('Error: Images Only!');
   }
 }
-
 // Get all articles
-router.get("/", (req, res) => {
-  res.render("layout", { title: "Articles", body: "articles" });
+router.get("/", async (req, res) => {
+  try {
+    // Fetch all articles from the database
+    const articles = await Article.findAll();
+
+    // Render the view with the articles
+    res.render("layout", { title: "Articles", body: "articles", articles });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
 });
 
 // GET - create article form
@@ -59,7 +67,7 @@ router.post('/creating', isAuthenticated, upload.single('poster'), async (req, r
     const article = await Article.create({
       title,
       description,
-      poster,
+      poster, // This should be the path stored in the database
       content,
       userId 
     });
@@ -70,6 +78,11 @@ router.post('/creating', isAuthenticated, upload.single('poster'), async (req, r
     console.error(error);
     res.status(500).send('Server Error');
   }
+});
+
+// Get article by id
+router.get("/:id", (req, res) => {
+  res.render("layout", { title: "Article", body: "article" });
 });
 
 module.exports = router;

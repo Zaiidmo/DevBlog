@@ -5,7 +5,7 @@
     >
       Add a new product
     </h2>
-    <form action="/articles/creating" method="POST">
+    <form action="/articles/creating" method="POST" enctype="multipart/form-data">
       <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
         <div class="sm:col-span-2">
           <label
@@ -42,7 +42,7 @@
         <div class="flex items-center justify-center w-full col-span-2">
           <label
             for="poster"
-            class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500"
+            class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:border-gray-500"
           >
             <div class="flex flex-col items-center justify-center pt-5 pb-6">
               <svg
@@ -61,16 +61,22 @@
                 />
               </svg>
               <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                <span class="font-semibold">Click to upload</span> or drag and
-                drop
+                <span class="font-semibold">Click to upload</span> or drag and drop
               </p>
               <p class="text-xs text-gray-500 dark:text-gray-400">
                 SVG, PNG, JPG or GIF (MAX. 800x400px)
               </p>
             </div>
-            <input name="poster" id="poster" type="file" class="hidden" />
+            <input
+              name="poster"
+              id="poster"
+              type="file"
+              class="hidden"
+              accept="image/png, image/jpeg, image/jpg, image/gif"
+            />
           </label>
         </div>
+        
 
         <div class="sm:col-span-2">
           <label

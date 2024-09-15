@@ -42,7 +42,7 @@ router.post(
      }
  
      try {
-       const { username, email, password, avatar, aboutMe, socialMedia, skills } = req.body;
+       const { username, email, password, avatar, aboutMe, socialMedia, skills,jobTitle } = req.body;
        const user = await User.findByPk(2);
  
        if (!user) {
@@ -56,7 +56,7 @@ router.post(
        user.aboutMe = aboutMe;
        user.socialMedia = socialMedia; 
        user.skills = skills; 
- 
+       user.jobTitle = jobTitle;    
        await user.save();
       //  res.json({ message: 'Profile updated successfully', user });
        res.redirect(`/profile/#`)

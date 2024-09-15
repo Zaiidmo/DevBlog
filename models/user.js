@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       // Define associations here
+      User.hasMany(models.Article, { foreignKey: 'userId' });
     }
   }
   
@@ -45,10 +46,8 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'Users',
     // Use camelCase for automatically added timestamp fields
     timestamps: true,
-    underscored: false, // Change this to false
+    underscored: false,
   });
 
-  User.hasMany(models.Article, { foreignKey: 'userId' });
-  
   return User;
 };

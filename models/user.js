@@ -47,6 +47,8 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: true,
     underscored: false, // Change this to false
   });
+
+  User.hasMany(models.Article, { foreignKey: 'userId' });
   
   return User;
 };

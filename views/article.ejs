@@ -2,7 +2,7 @@
   <div class="flex justify-center items-center">
     <img
       class="h-96 object-cover"
-      src="/images/articles-hero.png"
+      src="<%= article.poster %>"
       alt="Article's cover"
     />
   </div>
@@ -11,10 +11,10 @@
       <h1
         class="text-4xl md:text-5xl lg:text-6xl w-full font-bruno text-center text-white"
       >
-        Article's Title
+        <%= article.title %>
       </h1>
       <p class="text-gray-300 text-center font-poppins text-lg">
-        Description ................................
+        <%= article.description %>
       </p>
     </div>
   </div>
@@ -30,9 +30,9 @@
       >
         <img class="rounded-full w-8" src="/images/logo.png" alt="User photo" />
         <div class="flex flex-col justify-between">
-          <p class="text-gray-400 font-poppins text-xs">Posted by</p>
+          <p class="text-gray-400 font-poppins text-xs"><%= article.userId.name %></p>
           <p class="text-gray-400 font-poppins text-xs">
-            User profile .. Created at
+            <%= article.updatedAt %>
           </p>
         </div>
       </div>
@@ -54,11 +54,11 @@
             />
           </svg>
         </button>
-        <a href="#comments" class="flex justify-center items-center text-white rounded-lg bg-gray-700 py-2 w-full">
-          <button
-            id="comment-btn"
-            class=""
-          >
+        <a
+          href="#comments"
+          class="flex justify-center items-center text-white rounded-lg bg-gray-700 py-2 w-full"
+        >
+          <button id="comment-btn" class="">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -79,39 +79,7 @@
     <div class="col-span-1 flex flex-col gap-8 items-start">
       <div class="flex flex-col gap-4 justify-between">
         <p class="text-white text-justify font-poppins text-lg">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat
-          excepturi dolore tempore, consectetur sapiente eveniet modi nemo
-          inventore non fuga magni perspiciatis, ea blanditiis. Nam veritatis
-          atque iste sapiente tempore! Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Ipsum dignissimos odio unde totam, earum dolorem eum
-          eveniet at, cumque a libero. Ipsum, rerum molestiae et qui velit
-          cupiditate? Delectus, neque?Lorem ipsum dolor sit amet consectetur,
-          adipisicing elit. Placeat excepturi dolore tempore, consectetur
-          sapiente eveniet modi nemo inventore non fuga magni perspiciatis, ea
-          blanditiis. Nam veritatis atque iste sapiente tempore! Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Ipsum dignissimos odio
-          unde totam, earum dolorem eum eveniet at, cumque a libero. Ipsum,
-          rerum molestiae et qui velit cupiditate? Delectus, neque?Lorem ipsum
-          dolor sit amet consectetur, adipisicing elit. Placeat excepturi dolore
-          tempore, consectetur sapiente eveniet modi nemo inventore non fuga
-          magni perspiciatis, ea blanditiis. Nam veritatis atque iste sapiente
-          tempore! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Ipsum dignissimos odio unde totam, earum dolorem eum eveniet at,
-          cumque a libero. Ipsum, rerum molestiae et qui velit cupiditate?
-          Delectus, neque?Lorem ipsum dolor sit amet consectetur, adipisicing
-          elit. Placeat excepturi dolore tempore, consectetur sapiente eveniet
-          modi nemo inventore non fuga magni perspiciatis, ea blanditiis. Nam
-          veritatis atque iste sapiente tempore! Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Ipsum dignissimos odio unde totam, earum
-          dolorem eum eveniet at, cumque a libero. Ipsum, rerum molestiae et qui
-          velit cupiditate? Delectus, neque?Lorem ipsum dolor sit amet
-          consectetur, adipisicing elit. Placeat excepturi dolore tempore,
-          consectetur sapiente eveniet modi nemo inventore non fuga magni
-          perspiciatis, ea blanditiis. Nam veritatis atque iste sapiente
-          tempore! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Ipsum dignissimos odio unde totam, earum dolorem eum eveniet at,
-          cumque a libero. Ipsum, rerum molestiae et qui velit cupiditate?
-          Delectus, neque?
+          <%= article.content %>
         </p>
       </div>
     </div>

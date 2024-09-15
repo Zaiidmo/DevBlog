@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
   
 //update profile
 router.put(
-   '/',
+   '/update',
    [
     check('username').notEmpty().withMessage('enter votre usernme'),
     check('email').isEmail().withMessage('enter votre email'),
@@ -43,7 +43,6 @@ router.put(
           }
      user.username = username;
       user.email = email;
-      user.avatar = avatar;
       user.password = password;
       await user.save();
       res.json({ message: 'Profile updated successfully', user });

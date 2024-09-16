@@ -17,3 +17,18 @@
     border-radius: 50%;
     cursor: pointer;
 }
+
+/* Style for the confirmation popup */
+#confirmPopup {
+    z-index: 1000;
+}
+
+#confirmPopup img {
+    max-width: 100%;
+    height: auto;
+}
+
+.hidden {
+    display: none;
+}
+

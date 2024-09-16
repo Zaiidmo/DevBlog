@@ -11,7 +11,6 @@ const avatar = require('./router/uploadAvatar');
 const app = express();
 const bodyParser = require("body-parser");
 
-// Set up view engine
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));

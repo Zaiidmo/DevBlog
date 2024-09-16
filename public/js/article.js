@@ -1,3 +1,4 @@
+// Handle the delete article button
 document.getElementById('deleteArticle').addEventListener('click', async function () {
     const articleId = this.getAttribute('data-id');
     
@@ -23,10 +24,12 @@ document.getElementById('deleteArticle').addEventListener('click', async functio
     }
   });
 
+  // Handle the update article form
   const updateButton = document.getElementById('edit-btn');
   const editModal = document.getElementById('update-article');
   const closeBtn = document.getElementById('close-btn');
   const cancelBtn = document.getElementById('cancel-btn');
+  const updateArticleForm = document.getElementById('update-article-form');
 
   updateButton.addEventListener('click', function() {
     editModal.classList.toggle('hidden');
@@ -36,4 +39,31 @@ document.getElementById('deleteArticle').addEventListener('click', async functio
   });
   cancelBtn.addEventListener('click', function() {
     editModal.classList.add('hidden');
+  });
+
+  updateArticleForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+  
+    const form = event.target;
+    const formData = new FormData(form); 
+    const articleId = formData.get('articleId'); 
+  
+    try {
+      const response = await fetch(`/articles/${articleId}`, {
+        method: 'PUT',
+        body: formData // Send the form data, including files
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        alert(data.message); // Show success message
+        window.location.href = `/articles/${articleId}`; // Redirect to the updated article page
+      } else {
+        const errorData = await response.json();
+        alert(errorData.message);
+      }
+    } catch (error) {
+      console.error("Error updating article:", error);
+      alert("There was a problem updating the article");
+    }
   });

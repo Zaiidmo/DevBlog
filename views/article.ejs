@@ -201,8 +201,9 @@
 
         <!-- Modal content with scrolling if needed -->
         <div class="p-5">
-          <form id="update-article-form">
+          <form id="update-article-form" method="POST" enctype="multipart/form-data">
             <div class="flex flex-col gap-4 items-center justify-center w-full">
+              <input type="hidden" name="articleId" id="article-id" value="<%= article.id %>">
               <div class="w-full">
                 <label
                   for="title"

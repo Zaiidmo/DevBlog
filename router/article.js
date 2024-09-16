@@ -124,4 +124,44 @@ router.delete("/:id", isAuthenticated, async (req, res) => {
   }
 });
 
+// PUT - update article by id
+router.put("/:id", isAuthenticated, upload.single('poster'), async (req, res) => {
+  const userId = req.session.user.id;
+  const { title, description, content } = req.body;
+
+  try {
+    // Find the article by ID
+    const article = await Article.findByPk(req.params.id);
+
+    if (!article) {
+      return res.status(404).json({ message: "Article not found" });
+    }
+
+    // Ensure that the current user is the owner of the article
+    if (article.userId !== userId) {
+      return res.status(403).json({ message: "Unauthorized to update this article" });
+    }
+
+    // Update only if a new value is provided, otherwise keep the original
+    article.title = title || article.title;
+    article.description = description || article.description;
+    article.content = content || article.content;
+
+    // Check if a new poster was uploaded, otherwise keep the original
+    if (req.file) {
+      const poster = `/articles/${req.file.filename}`;
+      article.poster = poster;
+    }
+
+    // Save the updated article
+    await article.save();
+
+    // Return a success response with the updated article
+    res.status(200).json({ message: "Article updated successfully", article });
+  } catch (error) {
+    console.error("Error updating article:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;

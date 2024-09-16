@@ -2,7 +2,7 @@ const express=require('express');//import express
 const {User}=require('../models');//import model user par ORM squelize
 const router = express.Router();//cree route express
 const multer = require('multer');
-const {check, validationResult }=require('express-validator');
+
 
 
 const storage = multer.diskStorage({
@@ -13,22 +13,23 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + '-' + file.originalname); // Unique file name
     }
   });
+  const upload = multer({ storage: storage });
+
    
-   module.exports = router;
-   const upload = multer({ storage: storage });
-   router.post('/update-avatar', upload.single('avatar'), async (req, res) => {
+   router.post('/', upload.single('avatar'), async (req, res) => {
     try {
-        const user = await User.findByPk(req.user.id);
+        const user = await User.findByPk(2);
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
   
         // Update user profile picture
-        user.profilePicture = `/uploads/avatars/${req.file.filename}`;
+        user.avatar = `/uploads/avatars/${req.file.filename}`;
         await user.save();
-  
-        res.redirect('/profile');
+        res.redirect('/profile/#');
     } catch (error) {
+        console.error(error); 
         res.status(500).json({ error: 'Server error' });
     }
   });
+  module.exports = router;

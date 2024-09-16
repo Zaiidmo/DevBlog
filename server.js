@@ -22,6 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Static files
 app.use(express.static(path.join(__dirname, "public")));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 // Session middleware
 app.use(
@@ -35,7 +37,7 @@ app.use(
 
 // Root route
 app.use("/profile", profileRouter);
-app.use("/", avatar);
+app.use("/update-avatar", avatar);
 app.use("/auth", userrouter);
 app.use('/auth', forgotPasswordRouter);
 app.use("/articles", articleRouter);

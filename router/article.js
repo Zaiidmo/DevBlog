@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const { Article, User } = require('../models'); // Import the User model along with Article
+const { Article, User, Like } = require('../models'); // Import the User model along with Article
 const isAuthenticated = require('../middleware/isAuthenticated'); // Require the middleware
 
 // Set up multer for file uploads
@@ -164,32 +164,28 @@ router.put("/:id", isAuthenticated, upload.single('poster'), async (req, res) =>
   }
 });
 
-// POST - Toggle like on an article
+// POST - Toggle like
 router.post('/:id/toggle-like', isAuthenticated, async (req, res) => {
   const userId = req.session.user.id;
   const articleId = req.params.id;
 
   try {
-    // Check if the user has already liked this article
-    const existingLike = await Like.findOne({
-      where: { userId, articleId },
-    });
+    // Check if the user already liked the article
+    const like = await Like.findOne({ where: { userId, articleId } });
 
-    if (existingLike) {
-      // If the like exists, delete it
-      await existingLike.destroy();
-      res.status(200).json({ message: 'Article unliked' });
+    if (like) {
+      // Unlike if already liked
+      await like.destroy();
+      res.json({ message: 'Article unliked' });
     } else {
-      // If the like does not exist, create it
+      // Create a new like
       await Like.create({ userId, articleId });
-      res.status(200).json({ message: 'Article liked' });
+      res.json({ message: 'Article liked' });
     }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server Error' });
+    console.error('Error toggling like:', error);
+    res.status(500).json({ message: 'Error toggling like' });
   }
 });
-
-
 
 module.exports = router;

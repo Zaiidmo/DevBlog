@@ -164,4 +164,31 @@ router.put("/:id", isAuthenticated, upload.single('poster'), async (req, res) =>
   }
 });
 
+// POST - Toggle like on an article
+router.post('/:id/toggle-like', isAuthenticated, async (req, res) => {
+  const userId = req.session.user.id;
+  const articleId = req.params.id;
+
+  try {
+    // Check if the user has already liked this article
+    const existingLike = await Like.findOne({
+      where: { userId, articleId },
+    });
+
+    if (existingLike) {
+      // If the like exists, delete it
+      await existingLike.destroy();
+      res.status(200).send('Article unliked');
+    } else {
+      // If the like does not exist, create it
+      await Like.create({ userId, articleId });
+      res.status(200).send('Article liked');
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+});
+
+
 module.exports = router;

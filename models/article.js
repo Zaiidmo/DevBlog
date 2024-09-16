@@ -44,6 +44,13 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE', 
       onUpdate: 'CASCADE'
     });
+
+    // Many-to-many relationship through Likes table
+    Article.belongsToMany(models.User, { 
+      through: 'Likes', 
+      foreignKey: 'articleId', 
+      as: 'likedBy' 
+    });
   };
 
   return Article;

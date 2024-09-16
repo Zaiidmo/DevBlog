@@ -178,17 +178,18 @@ router.post('/:id/toggle-like', isAuthenticated, async (req, res) => {
     if (existingLike) {
       // If the like exists, delete it
       await existingLike.destroy();
-      res.status(200).send('Article unliked');
+      res.status(200).json({ message: 'Article unliked' });
     } else {
       // If the like does not exist, create it
       await Like.create({ userId, articleId });
-      res.status(200).send('Article liked');
+      res.status(200).json({ message: 'Article liked' });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).send('Server Error');
+    res.status(500).json({ message: 'Server Error' });
   }
 });
+
 
 
 module.exports = router;

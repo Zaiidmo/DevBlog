@@ -22,3 +22,18 @@ document.getElementById('deleteArticle').addEventListener('click', async functio
       alert('An error occurred while trying to delete the article.');
     }
   });
+
+  const updateButton = document.getElementById('edit-btn');
+  const editModal = document.getElementById('update-article');
+  const closeBtn = document.getElementById('close-btn');
+  const cancelBtn = document.getElementById('cancel-btn');
+
+  updateButton.addEventListener('click', function() {
+    editModal.classList.toggle('hidden');
+  });
+  closeBtn.addEventListener('click', function() {
+    editModal.classList.add('hidden');
+  });
+  cancelBtn.addEventListener('click', function() {
+    editModal.classList.add('hidden');
+  });

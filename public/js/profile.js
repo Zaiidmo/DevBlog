@@ -60,3 +60,18 @@ document.addEventListener('click', function(e) {
         e.target.parentElement.remove();
     }
 });
+
+function addSkill() {
+    const skill = document.getElementById('newSkill').value;
+    if (skill) {
+        const container = document.getElementById('skillsContainer');
+        const newDiv = document.createElement('div');
+        newDiv.className = 'mb-2';
+        newDiv.innerHTML = `
+            <input type="text" name="skills[]" value="${skill}"
+                   class="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500">
+        `;
+        container.appendChild(newDiv);
+        document.getElementById('newSkill').value = '';
+    }
+}

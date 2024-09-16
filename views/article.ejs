@@ -21,9 +21,8 @@
   <div
     class="gap-6 items-center p-4 mx-auto max-w-screen-xl lg:px-6 grid grid-cols-1"
   >
-    <div class="flex flex-col gap-4 justify-between"></div>
     <div
-      class="grid grid-cols-2 md:grid-cols-4 gap-4 border-y w-full border-gray-700 border-1 py-2"
+      class="grid grid-cols-1 md:grid-cols-4 gap-4 border-y w-full border-gray-700 border-1 py-2"
     >
       <div
         class="w-full justify-between flex items-center gap-4 col-span-1 md:col-span-2"
@@ -179,7 +178,7 @@
   </div>
 </section>
 <!-- Modal to update the article -->
-<section id="update-article" class="overflow-hidden ">
+<section id="update-article" class="overflow-hidden hidden">
   <div
     id="update-article-popup"
     tabindex="-1"
@@ -203,8 +202,8 @@
         <!-- Modal content with scrolling if needed -->
         <div class="p-5">
           <form id="update-article-form">
-            <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
-              <div class="sm:col-span-2">
+            <div class="flex flex-col gap-4 items-center justify-center w-full">
+              <div class="w-full">
                 <label
                   for="title"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -217,7 +216,7 @@
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 />
               </div>
-              <div class="sm:col-span-2">
+              <div class="w-full">
                 <label
                   for="description"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -269,7 +268,7 @@
                 </label>
               </div>
 
-              <div class="sm:col-span-2">
+              <div >
                 <label
                   for="content-editor"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"

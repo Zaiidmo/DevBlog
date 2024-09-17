@@ -35,7 +35,7 @@ router.get('/', async (req, res) => {
 router.post('/update', async (req, res) => {
   try {
     const { username, email, password, avatar, aboutMe, socialMedia, skills, jobTitle } = req.body;
-    const user = await User.findByPk(2);  // Supposons que vous mettez à jour l'utilisateur avec l'ID 2
+    const user = await User.findByPk(2);  
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
@@ -46,7 +46,7 @@ router.post('/update', async (req, res) => {
     if (password) user.password = password;
     user.avatar = avatar;
     user.aboutMe = aboutMe;
-    user.socialMedia = socialMedia; // Directement enregistrer l'objet socialMedia
+    user.socialMedia = socialMedia; 
     user.skills = skills;
     user.jobTitle = jobTitle;
     

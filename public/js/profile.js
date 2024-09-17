@@ -48,10 +48,10 @@ function handleAvatarUpload(event) {
         const confirmPopup = document.getElementById('confirmPopup');
         const avatarFileInput = document.getElementById('avatarFileInput');
 
-        // Preview the selected image
+    
         previewImage.src = URL.createObjectURL(file);
         
-        // Show the confirmation popup
+
         confirmPopup.classList.remove('hidden');
         
         // Set the file in the hidden file input of the form
@@ -60,7 +60,7 @@ function handleAvatarUpload(event) {
         // Cancel button hides the popup and clears the input
         document.getElementById('cancelButton').onclick = () => {
             confirmPopup.classList.add('hidden');
-            event.target.value = '';  // Clear the file input
+            event.target.value = '';  
         };
     }
 }

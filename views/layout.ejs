@@ -1,8 +1,9 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -32,23 +33,31 @@
           </a>
           <div class="flex items-center lg:order-2">
             <% if (locals.user) { %>
+
                 <a
                 href="/auth/logout"
                 class="text-black bg-yellow-400 hover:bg-transparent hover:border border-yellow-400 hover:text-white focus:ring-4 focus:ring-primary-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 "
                 >Log out</a
                 >
+                
+                <a
+                href="/profile"
+                class="text-white hover:bg-yellow-50 hover:text-black focus:ring-4 hover:border border-yellow-400 focus:ring-gray-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+                >Profile</a
+                >
 
               <% } else { %>
-              <a
-                href="/auth/login"
-                class="text-white hover:bg-yellow-50 hover:text-black focus:ring-4 hover:border border-yellow-400 focus:ring-gray-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
-                >Log in</a
-              >
-            <a
-              href="/auth/register"
-              class="text-black bg-yellow-400 hover:bg-transparent hover:border border-yellow-400 hover:text-white focus:ring-4 focus:ring-primary-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
-              >Get started</a
-            >
+                <a
+                  href="/auth/login"
+                  class="text-white hover:bg-yellow-50 hover:text-black focus:ring-4 hover:border border-yellow-400 focus:ring-gray-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+                  >Log in <%locals.user%></a
+                >
+                <a
+                  href="/auth/register"
+                  class="text-black bg-yellow-400 hover:bg-transparent hover:border border-yellow-400 hover:text-white focus:ring-4 focus:ring-primary-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+                  >Get started</a
+                >
+                
             <% } %>
             <button
               data-collapse-toggle="mobile-menu-2"
@@ -117,5 +126,6 @@
 
     <main><%- include(body) %></main>
 
+  </body>
   </body>
 </html>

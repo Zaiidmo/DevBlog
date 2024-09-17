@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const { Article, User } = require('../models'); // Import the User model along with Article
+const { Article, User, Like } = require('../models'); // Import the User model along with Article
 const isAuthenticated = require('../middleware/isAuthenticated'); // Require the middleware
 
 // Set up multer for file uploads
@@ -81,17 +81,26 @@ router.post('/creating', isAuthenticated, upload.single('poster'), async (req, r
 });
 
 // GET - single article by id
-router.get("/:id", async (req, res) => {
+router.get("/:id", isAuthenticated, async (req, res) => {
   try {
     const article = await Article.findByPk(req.params.id, {
-      include: User // Assuming you're including the User model
+      include: User // Include User model to get the author's information
     });
+
+    // Check if the current user has liked the article
+    const userId = req.session.user.id;
+    const userLike = await Like.findOne({
+      where: { userId, articleId: article.id }
+    });
+
+    const isLiked = userLike ? true : false;
 
     res.render("layout", {
       title: "Article",
       body: "article",
       article: article, // Pass the article data
       user: req.session.user, // Pass the session user explicitly
+      isLiked // Pass like status
     });
   } catch (err) {
     res.status(500).send(err.message);
@@ -161,6 +170,30 @@ router.put("/:id", isAuthenticated, upload.single('poster'), async (req, res) =>
   } catch (error) {
     console.error("Error updating article:", error);
     res.status(500).json({ message: "Server error" });
+  }
+});
+
+// POST - Toggle like
+router.post('/:id/toggle-like', isAuthenticated, async (req, res) => {
+  const userId = req.session.user.id;
+  const articleId = req.params.id;
+
+  try {
+    // Check if the user already liked the article
+    const like = await Like.findOne({ where: { userId, articleId } });
+
+    if (like) {
+      // Unlike if already liked
+      await like.destroy();
+      res.json({ message: 'Article unliked' });
+    } else {
+      // Create a new like
+      await Like.create({ userId, articleId });
+      res.json({ message: 'Article liked' });
+    }
+  } catch (error) {
+    console.error('Error toggling like:', error);
+    res.status(500).json({ message: 'Error toggling like' });
   }
 });
 

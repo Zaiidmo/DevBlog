@@ -1,6 +1,7 @@
-<div class="bg-[#0C172C] w-full md:h-screen h-full mx-auto py-12">
+<div class="bg-[#0C172C] w-full md:h-full h-full mx-auto py-12">
     <div class="container mx-auto py-8 h-full max-w-screen-xl px-4 pt-12">
         <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4 h-full">
+
             <div class="col-span-4 sm:col-span-3">
                 <div class="bg-gray-800 shadow rounded-lg p-6">
                     <div class="flex flex-col items-center">
@@ -52,7 +53,7 @@
                                 Edit Profile
                             </button>
                         <% } %>
-                            <a href="<%= user.resumeLink || '#' %>" class="bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded mt-4">Resume</a>
+
                         </div>
                         
               
@@ -93,8 +94,28 @@
                             <p>No social media links</p>
                           <% } %>
                     </div>
+                        <!-- New Articles Section -->
+        <div class="bg-gray-800 shadow rounded-lg p-6 mt-6">
+            <h2 class="text-xl font-bold mb-4 text-yellow-400">Articles</h2>
+            <% if (user.articles && user.articles.length > 0) { %>
+                <ul>
+                    <% user.articles.forEach(function(article) { %>
+                        <li class="mb-4">
+                            <h3 class="text-white text-lg font-bold"><%= article.title %></h3>
+                            <p class="text-gray-300"><%= article.content.substring(0, 100) %>...</p>
+                            <a href="/article/<%= article.id %>" class="text-blue-500 hover:text-blue-700">Read more</a>
+                        </li>
+                    <% }); %>
+                </ul>
+            <% } else { %>
+                <p class="text-white">No articles available.</p>
+            <% } %>
+        </div>
                 </div>
             </div>
+
+         
+            
         </div>
     </div>
 </div>

@@ -1,12 +1,15 @@
 const express=require('express');//import express
-const {User}=require('../models');//import model user par ORM squelize
+const {User}=require('../models');
+const {Article}=require('../models');//import model user par ORM squelize
 const router = express.Router();//cree route express
 const {check, validationResult }=require('express-validator');
 
 // get profile
 router.get('/', async (req, res) => {
     try {
-       const user = await User.findByPk(2); 
+      const user = await User.findByPk(2, {
+        include: [{ model: Article, as: 'articles' }] 
+    });
        if (!user) {
           console.log("User not found");
           return res.status(404).json({ error: 'User not found' });

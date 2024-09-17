@@ -120,9 +120,11 @@ router.post('/login', validateLogin, async (req, res) => {
       username: user.username,
       email: user.email
     };
+
     
-    // res.locals.user = req.session.user;
-    res.redirect('/articles');
+    
+
+    res.redirect('/');
   } catch (error) {
     console.error(error);
     res.status(500).send('Server Error');

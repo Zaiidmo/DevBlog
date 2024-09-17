@@ -29,42 +29,33 @@ router.get('/', async (req, res) => {
  
   
 //update profile
-router.post(
-   '/update',
-   [
-     check('username').notEmpty().withMessage('Please enter your username'),
-     check('email').isEmail().withMessage('Please enter a valid email'),
-   ],
-   async (req, res) => {
-     const errors = validationResult(req);
-     if (!errors.isEmpty()) {
-       return res.status(400).json({ errors: errors.array() });
-     }
- 
-     try {
-       const { username, email, password, avatar, aboutMe, socialMedia, skills,jobTitle } = req.body;
-       const user = await User.findByPk(2);
- 
-       if (!user) {
-         return res.status(404).json({ error: 'User not found' });
-       }
- 
-       user.username = username;
-       user.email = email;
-       if (password) user.password = password; 
-       user.avatar = avatar;
-       user.aboutMe = aboutMe;
-       user.socialMedia = socialMedia; 
-       user.skills = skills; 
-       user.jobTitle = jobTitle;    
-       await user.save();
-      //  res.json({ message: 'Profile updated successfully', user });
-       res.redirect(`/profile/#`)
-     } catch (error) {
-       res.status(500).json({ error: 'Server error' });
-     }
-   }
- );
+router.post('/update', async (req, res) => {
+  try {
+    const { username, email, password, avatar, aboutMe, socialMedia, skills, jobTitle } = req.body;
+    const user = await User.findByPk(2);  // Supposons que vous mettez à jour l'utilisateur avec l'ID 2
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    user.username = username;
+    user.email = email;
+    if (password) user.password = password;
+    user.avatar = avatar;
+    user.aboutMe = aboutMe;
+    user.socialMedia = socialMedia; // Directement enregistrer l'objet socialMedia
+    user.skills = skills;
+    user.jobTitle = jobTitle;
+    
+    await user.save();
+
+    res.redirect(`/profile/#`);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
  module.exports = router;
 
  

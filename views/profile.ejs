@@ -140,7 +140,8 @@
                         <% if (user.socialMedia) { %>
                             <% Object.keys(user.socialMedia).forEach(function(platform) { %>
                                 <li class="flex items-center gap-2">
-                                    <input type="text" name="socialMedia[<%= platform %>]" value="<%= user.socialMedia[platform] %>"
+                                    <input type="text" name="socialMedia[<%= platform %>]" value="<%= user.socialMedia[platform] %>" 
+
                                            class="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500" placeholder="Enter link">
                                     <span class="text-gray-500"><%= platform %></span>
                                     <button type="button" class="remove-btn text-red-500">✘</button>

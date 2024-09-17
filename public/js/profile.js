@@ -18,50 +18,6 @@ if (closeContactFormButton) {
         contactFormModal.classList.add('hidden');
     });
 }
-document.getElementById('addSocialMedia').addEventListener('click', function() {
-    const socialMediaList = document.getElementById('socialMediaList');
-    const platforms = ['LinkedIn', 'GitHub', 'Twitter', 'YouTube', 'Portfolio'];
-    
-    const newItem = document.createElement('li');
-    newItem.classList.add('flex', 'items-center', 'gap-2');
-    
-    const platformSelect = document.createElement('select');
-    platformSelect.name = 'socialMedia[platform]';
-    platformSelect.classList.add('w-1/3', 'p-2', 'border', 'rounded-md');
-    platforms.forEach(platform => {
-        const option = document.createElement('option');
-        option.value = platform.toLowerCase();
-        option.textContent = platform;
-        platformSelect.appendChild(option);
-    });
-    
-    const linkInput = document.createElement('input');
-    linkInput.type = 'text';
-    linkInput.name = 'socialMedia[link]';
-    linkInput.placeholder = 'Enter link';
-    linkInput.classList.add('w-2/3', 'p-2', 'border', 'rounded-md');
-    
-    const removeBtn = document.createElement('button');
-    removeBtn.type = 'button';
-    removeBtn.textContent = '✘';
-    removeBtn.classList.add('remove-btn', 'text-red-500');
-    removeBtn.addEventListener('click', function() {
-        socialMediaList.removeChild(newItem);
-    });
-    
-    newItem.appendChild(platformSelect);
-    newItem.appendChild(linkInput);
-    newItem.appendChild(removeBtn);
-    socialMediaList.appendChild(newItem);
-});
-
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('remove-btn')) {
-        e.target.parentElement.remove();
-    }
-});
-
-
 
 
 
@@ -108,3 +64,55 @@ function handleAvatarUpload(event) {
         };
     }
 }
+
+
+document.getElementById('addSocialMedia').addEventListener('click', function() {
+    const socialMediaList = document.getElementById('socialMediaList');
+    const platforms = ['LinkedIn', 'GitHub', 'Twitter', 'YouTube', 'Portfolio'];
+    
+    const newItem = document.createElement('li');
+    newItem.classList.add('flex', 'items-center', 'gap-2');
+    
+    // Create the select dropdown for platform
+    const platformSelect = document.createElement('select');
+    platformSelect.classList.add('w-1/3', 'p-2', 'border', 'rounded-md');
+    platforms.forEach(platform => {
+        const option = document.createElement('option');
+        option.value = platform.toLowerCase();
+        option.textContent = platform;
+        platformSelect.appendChild(option);
+    });
+    
+    // Create the input for the link
+    const linkInput = document.createElement('input');
+    linkInput.type = 'text';
+    linkInput.placeholder = 'Enter link';
+    linkInput.classList.add('w-2/3', 'p-2', 'border', 'rounded-md');
+    
+    // Change the name dynamically when the platform is selected
+    platformSelect.addEventListener('change', function() {
+        linkInput.name = `socialMedia[${platformSelect.value}]`; // Change the name of the input based on selected platform
+    });
+    
+    // Set initial name when the item is first added
+    linkInput.name = `socialMedia[${platformSelect.value}]`;
+    
+    // Create the remove button
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.textContent = '✘';
+    removeBtn.classList.add('remove-btn', 'text-red-500');
+    removeBtn.addEventListener('click', function() {
+        socialMediaList.removeChild(newItem);
+    });
+    
+    newItem.appendChild(platformSelect);
+    newItem.appendChild(linkInput);
+    newItem.appendChild(removeBtn);
+    socialMediaList.appendChild(newItem);
+});
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('remove-btn')) {
+        e.target.parentElement.remove();
+    }
+});

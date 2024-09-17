@@ -81,17 +81,26 @@ router.post('/creating', isAuthenticated, upload.single('poster'), async (req, r
 });
 
 // GET - single article by id
-router.get("/:id", async (req, res) => {
+router.get("/:id", isAuthenticated, async (req, res) => {
   try {
     const article = await Article.findByPk(req.params.id, {
-      include: User // Assuming you're including the User model
+      include: User // Include User model to get the author's information
     });
+
+    // Check if the current user has liked the article
+    const userId = req.session.user.id;
+    const userLike = await Like.findOne({
+      where: { userId, articleId: article.id }
+    });
+
+    const isLiked = userLike ? true : false;
 
     res.render("layout", {
       title: "Article",
       body: "article",
       article: article, // Pass the article data
       user: req.session.user, // Pass the session user explicitly
+      isLiked // Pass like status
     });
   } catch (err) {
     res.status(500).send(err.message);

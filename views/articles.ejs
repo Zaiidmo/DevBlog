@@ -88,9 +88,10 @@
           <%= article.title %>
           </h5>
         </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-ellipsis">
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-ellipsis overflow-hidden whitespace-nowrap w-full">
           <%= article.description %>
         </p>
+        
         <a
           href="/articles/<%= article.id %>"
           class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-black bg-yellow-400 rounded-lg hover:bg-yellow-800 "

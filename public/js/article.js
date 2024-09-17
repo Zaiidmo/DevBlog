@@ -1,6 +1,20 @@
 // Handle likes and dislikes
 const likeButton = document.getElementById('like-btn');
+
 if (likeButton) {
+  // Check if the user has already liked the article based on data-liked attribute
+  const isLiked = likeButton.getAttribute('data-liked') === 'true';
+
+  // Update button style initially
+  if (isLiked) {
+    likeButton.classList.remove('text-white');
+    likeButton.classList.add('text-red-600');
+  } else {
+    likeButton.classList.remove('text-red-600');
+    likeButton.classList.add('text-white');
+  }
+
+  // Add event listener for click event
   likeButton.addEventListener('click', function() {
     const articleId = this.dataset.articleId;
 
@@ -12,22 +26,27 @@ if (likeButton) {
     })
     .then(response => response.json()) 
     .then(data => {
-      alert(data.message);
       // Toggle button style based on the response
       if (data.message === 'Article liked') {
         likeButton.classList.remove('text-white');
         likeButton.classList.add('text-red-600');
-      } else {
+        likeButton.setAttribute('data-liked', 'true');
+      } else if (data.message === 'Article unliked') {
         likeButton.classList.remove('text-red-600');
         likeButton.classList.add('text-white');
+        likeButton.setAttribute('data-liked', 'false');
       }
+
+      // Provide feedback to the user
+      alert(data.message);
     })
     .catch(error => {
       console.error('Error:', error);
-      alert('An error occurred');
+      alert('An error occurred while processing your request.');
     });
   });
 }
+
 
 
 // Handle the delete article button

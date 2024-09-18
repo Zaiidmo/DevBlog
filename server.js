@@ -7,6 +7,7 @@ const userrouter = require("./router/auth");
 const forgotPasswordRouter = require('./router/resetPassword');
 const articleRouter = require("./router/article");
 const app = express();
+app.use(express.static('src'))
 
 // Session middleware should be applied before any custom middlewares
 app.use(

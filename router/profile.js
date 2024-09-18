@@ -7,7 +7,7 @@ const {check, validationResult }=require('express-validator');
 // get profile
 router.get('/', async (req, res) => {
     try {
-      const user = await User.findByPk(2, {
+      const user = await User.findByPk(req.user.id, {
         include: [{ model: Article, as: 'articles' }] 
     });
        if (!user) {
@@ -35,7 +35,7 @@ router.get('/', async (req, res) => {
 router.post('/update', async (req, res) => {
   try {
     const { username, email, password, avatar, aboutMe, socialMedia, skills, jobTitle } = req.body;
-    const user = await User.findByPk(2);  
+    const user = await User.findByPk(req.user.id);  
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });

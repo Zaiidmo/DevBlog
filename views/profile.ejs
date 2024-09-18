@@ -12,16 +12,17 @@
 
                            <div class="avatar-wrapper relative"> 
                             <img id="avatarImage" src="<%= user.avatar || '' %>" alt="User Avatar" class="w-32 h-32 rounded-full object-cover">
-                            
+                            <% if (currentUser && currentUser.id === user.id) { %> 
                             <label for="avatarUpload" class="absolute bottom-0 right-0 bg-gray-800 text-white p-2 rounded-full cursor-pointer">
                                 <i class="fas fa-camera"></i>
                             </label>
                             
                             <input type="file" id="avatarUpload" name="avatar" class="hidden" onchange="handleAvatarUpload(event)">
+                            <% } %>
                         </div>
                         
                         <!-- Popup for image confirmation with form -->
-                        <div id="confirmPopup" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+                        <div id="confirmPopup" class="fixed flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
                             <div class="bg-white p-4 rounded-lg">
                                 <h2 class="text-lg font-bold mb-4">Confirm Image Upload</h2>
                                 
@@ -40,7 +41,7 @@
                             </div>
                         </div>
                         
-
+                   
                         </div>
                         <h1 class="text-xl font-bold text-white"><%= user.username %></h1>
                         <p class="text-white"><%= user.jobTitle || 'developeur full stack' %></p>
@@ -48,7 +49,7 @@
 
                         <div class="mt-6 flex flex-wrap gap-4 justify-center">
                              <!-- Conditionally render the Edit Profile button -->
-                        <% if (2 === user.id) { %>
+                        <% if (currentUser && currentUser.id === user.id) { %>
                             <button id="openContactForm" class="text-black bg-yellow-400 hover:bg-transparent hover:border border-yellow-400 hover:text-white py-2 px-4 rounded mt-4">
                                 Edit Profile
                             </button>

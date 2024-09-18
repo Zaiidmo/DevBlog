@@ -1,18 +1,16 @@
 const express = require('express');
 const router = express.Router();
+
+// Import your comment controller functions
 const commentController = require('../controllers/commentController');
 
-// Get all comments for a specific article
-router.get('/article/:id', commentController.getCommentByArticleID);
+// GET request for fetching comments by article ID
+router.get('/article/:id', commentController.getCommentsByArticleId);
 
-// Create a new comment
-
+// POST request for creating a new comment
 router.post('/', commentController.createComment);
-// delete a comment
 
+// DELETE request for deleting a comment by ID
 router.delete('/:id', commentController.deleteComment);
-
-// Get all comments (if needed)
-router.get('/', commentController.getAllComments);
 
 module.exports = router;

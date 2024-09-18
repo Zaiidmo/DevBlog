@@ -12,7 +12,8 @@ router.get('/', async (req, res) => {
     });
        if (!user) {
           console.log("User not found");
-          return res.status(404).json({ error: 'User not found' });
+ 
+         return res.render("layout", { title: "404", body: "404",});
        }
  
        // Render the profile page

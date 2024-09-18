@@ -11,8 +11,8 @@ exports.createComment = async (req, res) => {
     res.status(500).json({ error: 'Error creating comment' });
   }
 };
-
-exports.getComments = async (req, res) => {
+// get comment by spicifique ID
+exports.getCommentByArticleID = async (req, res) => {
   try {
     const { id } = req.params;
     console.log('Fetching comments for article:', id);

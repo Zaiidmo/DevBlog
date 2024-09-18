@@ -12,9 +12,17 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     content: {
       type: DataTypes.TEXT,
       allowNull: false,
+    },
+    poster: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     userId: {
       type: DataTypes.INTEGER,
@@ -35,6 +43,13 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId', 
       onDelete: 'CASCADE', 
       onUpdate: 'CASCADE'
+    });
+
+    // Many-to-many relationship through Likes table
+    Article.belongsToMany(models.User, { 
+      through: 'Likes', 
+      foreignKey: 'articleId', 
+      as: 'likedBy' 
     });
   };
 

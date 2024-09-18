@@ -6,7 +6,34 @@ const session = require("express-session");
 const userrouter = require("./router/auth");
 const forgotPasswordRouter = require('./router/resetPassword');
 const articleRouter = require("./router/article");
+const profileRouter = require('./router/profile');
+const avatar = require('./router/uploadAvatar');
 const app = express();
+
+// Session middleware should be applied before any custom middlewares
+app.use(
+  session({
+    secret: process.env.SECRET_KEY,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }, 
+  })
+);
+
+// Middleware for checking authentication
+function isAuthenticated(req, res, next) {
+  if (req.session.user) {
+    res.locals.isAuthenticated = true;
+    res.locals.user = req.session.user;
+  } else {
+    res.locals.isAuthenticated = false;
+  }
+  next();
+}
+
+// Apply middleware globally
+app.use(isAuthenticated);
+const bodyParser = require("body-parser");
 
 // Set up view engine
 
@@ -19,23 +46,15 @@ app.use(express.urlencoded({ extended: true }));
 
 // Static files
 app.use(express.static(path.join(__dirname, "public")));
-
-// Session middleware
-app.use(
-  session({
-    secret: "your_session_secret", // Replace with a strong, unique secret
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false }, // Set to true if using https
-  })
-);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Root route
+app.use("/profile", profileRouter);
+app.use("/update-avatar", avatar);
 app.use("/auth", userrouter);
 app.use('/auth', forgotPasswordRouter);
 app.use("/articles", articleRouter);
 app.use("/comments", require("./routes/commentRoutes"));
-
 app.get("/", (req, res) => {
   res.render("layout", { title: "Home", body: "home" });
 });

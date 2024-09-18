@@ -10,13 +10,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
     <link rel="stylesheet" href="/css/output.css" />
+    <link rel="stylesheet" href="/css/avatar.css" />
     <link rel="shortcut icon" href="/images/logo.png" type="image/x-icon" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link
       href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tiny.cloud/1/xa9tc8d74n31irheq08faof2hg0jl6i1umdahiksnewrhbad/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
   </head>
   <body class="font-poppins ">
     <header class="w-screen flex items-center bg-gray-800 rounded-b-3xl h-20 px-4 lg:px-6 py-2.5 fixed border-yellow-400">
@@ -32,7 +39,15 @@
             >
           </a>
           <div class="flex items-center lg:order-2">
-            <% if (locals.user) { %>
+            <% if (isAuthenticated) { %>
+              <a
+              href="/articles/create-article"
+              class="text-yellow-400 bg-transparent hover:bg-transparent border border-white hover:text-white focus:ring-4 focus:ring-primary-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex justify-between items-center gap-2"
+              >
+              <span class="tracking-widest"> write</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor"><path d="M10.55 3c-3.852.007-5.87.102-7.159 1.39C2 5.783 2 8.022 2 12.5s0 6.717 1.391 8.109C4.783 22 7.021 22 11.501 22c4.478 0 6.717 0 8.108-1.391c1.29-1.29 1.384-3.307 1.391-7.16"/><path d="M11.056 13C10.332 3.866 16.802 1.276 21.98 2.164c.209 3.027-1.273 4.16-4.093 4.684c.545.57 1.507 1.286 1.403 2.18c-.074.638-.506.95-1.372 1.576c-1.896 1.37-4.093 2.234-6.863 2.396"/><path d="M9 17c2-5.5 3.96-7.364 6-9"/></g></svg>
+              </a
+              >
                 <a
                 href="/auth/logout"
                 class="text-black bg-yellow-400 hover:bg-transparent hover:border border-yellow-400 hover:text-white focus:ring-4 focus:ring-primary-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 "
@@ -51,7 +66,7 @@
               >Get started</a
             >
             <% } %>
-            <button
+            <button id="mobile-menu-button"
               data-collapse-toggle="mobile-menu-2"
               type="button"
               class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -118,6 +133,42 @@
 
     <main><%- include(body) %></main>
 
+    
+
+<footer class="shadow bg-gray-800">
+  <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+      <div class="sm:flex sm:items-center sm:justify-between">
+        <a href="/" class="flex items-center">
+          <img src="/images/logo.png" class="mr-3 h-6 sm:h-9" alt="DevBlog" />
+          <span
+            class="self-center text-xl font-logo font-semibold whitespace-nowrap dark:text-white"
+            >DevBlog</span
+          >
+        </a>
+          <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+              <li>
+                  <a href="#" class="hover:underline me-4 md:me-6">About</a>
+              </li>
+              <li>
+                  <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
+              </li>
+              <li>
+                  <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
+              </li>
+              <li>
+                  <a href="#" class="hover:underline">Contact</a>
+              </li>
+          </ul>
+      </div>
+      <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+      <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/" class="hover:underline">MernOps™</a>. All Rights Reserved.</span>
+  </div>
+</footer>
+
+
+
+    <script src="/js/profile.js"></script>
   </body>
-  </body>
+  <script src="/js/main.js"></script>
+
 </html>

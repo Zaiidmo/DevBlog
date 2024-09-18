@@ -5,6 +5,15 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       // Define associations here
+      User.hasMany(models.Article, { as: 'articles', foreignKey: 'userId' });
+
+      // Many-to-many relationship through Likes table
+      User.belongsToMany(models.Article, { 
+        through: 'Likes', 
+        foreignKey: 'userId',
+        as: 'likedArticles'
+      });
+      
     }
   }
   
@@ -36,8 +45,26 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
-        isUrl: true,
+       
       },
+    },
+    aboutMe: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    skills: {
+      type: DataTypes.JSON, 
+      allowNull: true,
+      defaultValue: []
+    },
+    socialMedia: {
+      type: DataTypes.JSON, 
+      allowNull: true,
+      defaultValue: []
+    },
+    jobTitle: { 
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   }, {
     sequelize,
@@ -45,8 +72,7 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'Users',
     // Use camelCase for automatically added timestamp fields
     timestamps: true,
-    underscored: false, // Change this to false
+    underscored: false,
   });
-  
   return User;
 };

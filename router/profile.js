@@ -5,30 +5,34 @@ const router = express.Router();//cree route express
 const {check, validationResult }=require('express-validator');
 
 // get profile
-router.get('/', async (req, res) => {
-    try {
-      const user = await User.findByPk(req.user.id, {
-        include: [{ model: Article, as: 'articles' }] 
+router.get('/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;  // Get user ID from URL parameters
+    const user = await User.findByPk(userId, {
+      include: [
+        { model: Article, as: 'articles' },       // Articles authored by the user
+        { model: Article, as: 'likedArticles' }   // Articles liked by the user
+      ]
     });
-       if (!user) {
-          console.log("User not found");
- 
-         return res.render("layout", { title: "404", body: "404",});
-       }
- 
-       // Render the profile page
-       if (typeof user.skills === 'string') {
-         user.skills = JSON.parse(user.skills);
-       }
-       if (typeof user.socialMedia === 'string') {
-         user.socialMedia = JSON.parse(user.socialMedia);
-       }
-       res.render("layout", { title: "Profile", body: "profile", user,currentUser: req.user });
-    } catch (error) {
-       console.error("Error fetching user:", error); 
-       res.status(500).json({ error: 'Server error' });
+
+    if (!user) {
+      return res.render("layout", { title: "404", body: "404" });
     }
- });
+
+    if (user.skills && typeof user.skills === 'string') {
+      user.skills = JSON.parse(user.skills);
+    }
+    if (user.socialMedia && typeof user.socialMedia === 'string') {
+      user.socialMedia = JSON.parse(user.socialMedia);
+    }
+
+    res.render("layout", { title: "Profile", body: "profile", user, currentUser: req.user });
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 
  
   

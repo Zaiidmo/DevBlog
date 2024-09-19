@@ -6,6 +6,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // Define associations here
       User.hasMany(models.Article, { foreignKey: 'userId' });
+
+      // Many-to-many relationship through Likes table
+      User.belongsToMany(models.Article, { 
+        through: 'Likes', 
+        foreignKey: 'userId',
+        as: 'likedArticles'
+      });
+      User.hasMany(models.PasswordResets, { foreignKey: 'userId' });
     }
   }
   

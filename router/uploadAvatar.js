@@ -3,7 +3,7 @@ const {User}=require('../models');//import model user par ORM squelize
 const router = express.Router();//cree route express
 const multer = require('multer');
 const {check, validationResult }=require('express-validator');
-
+const isAuthenticated = require('../middleware/isAuthenticated');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -17,8 +17,11 @@ const storage = multer.diskStorage({
    
    const upload = multer({ storage: storage });
    router.post('/', upload.single('avatar'), async (req, res) => {
+
     try {
-        const user = await User.findByPk(2);
+        // console.log("userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" ,req.session.user);
+        const userId=req.session.user.id;
+        const user = await User.findByPk(userId);
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
@@ -27,7 +30,7 @@ const storage = multer.diskStorage({
         user.avatar = `/uploads/avatars/${req.file.filename}`;
         await user.save();
   
-        res.redirect('/profile');
+        return res.redirect(`/profile/${userId}`);
     } catch (error) {
         res.status(500).json({ error: 'Server error' });
     }

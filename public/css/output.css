@@ -2233,6 +2233,10 @@ video {
     margin-top: 0px;
   }
 
+  .md\:h-\[100\%\] {
+    height: 100%;
+  }
+
   .md\:h-auto {
     height: auto;
   }
@@ -2494,6 +2498,11 @@ video {
   .dark\:text-white {
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
+  }
+
+  .dark\:text-yellow-400 {
+    --tw-text-opacity: 1;
+    color: rgb(250 204 21 / var(--tw-text-opacity));
   }
 
   .dark\:placeholder-gray-400::-moz-placeholder {

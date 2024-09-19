@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         as: 'likedArticles'
       });
+      User.hasMany(models.PasswordResets, { foreignKey: 'userId' });
     }
   }
   

@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const { User } = require('../models');
 const { body, validationResult } = require('express-validator');
-// const isAuthenticated = require('./middleware/isAuthenticated');  add this middleware to profile 
+//const isAuthenticated = require('../middleware/isAuthenticated');  add this middleware to profile 
 
 // Validation middleware
 const validateRegister = [
@@ -120,8 +120,8 @@ router.post('/login', validateLogin, async (req, res) => {
       username: user.username,
       email: user.email
     };
-
-    console.log(req.session.user);
+    
+    
     
 
     res.redirect('/');

@@ -23,14 +23,14 @@
                         
                         <!-- Popup for image confirmation with form -->
                         <div id="confirmPopup" class="fixed flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
-                            <div class="bg-white p-4 rounded-lg">
-                                <h2 class="text-lg font-bold mb-4">Confirm Image Upload</h2>
+                            <div class="bg-[#0C172C]  p-4 rounded-lg border-yellow-500 border-1">
+                                <h2 class="text-lg font-bold mb-4 text-white">Confirm Image Upload</h2>
                                 
                                 <!-- Preview Image -->
                                 <img id="previewImage" src="" alt="Preview" class="w-32 h-32 mb-4 object-cover">
                                 
                                 <!-- Form to save the changes -->
-                                <form id="avatarForm" action="/update-avatar" method="POST" enctype="multipart/form-data">
+                                <form id="avatarForm" action="/update-avatar" method="POST" enctype="multipart/form-data" >
                                     <input type="file" id="avatarFileInput" name="avatar" class="hidden">
                                     
                                     <div class="flex justify-end">

@@ -176,20 +176,6 @@
 
       <input type="hidden" name="articleId" id="articleId" value="">
 
-      <!-- <div class="flex items-center mb-4">
-        <input
-          id="anonymousCheck"
-          type="checkbox"
-          class="w-4 h-4 text-blue-600 border-gray-300 rounded"
-        />
-        <label
-          for="anonymousCheck"
-          class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-        >
-          Post as Anonymous
-        </label>
-      </div> -->
-
       <button
         type="submit"
         class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
@@ -252,10 +238,6 @@
       </div>
     </article>
   <% }) %>
-  
-
-    <!-- Comments will be dynamically inserted here by JavaScript -->
-    <!-- <div id="commentsContainer"></div> -->
   </div>
 </section>
 
@@ -428,6 +410,8 @@
 </section>
 
 <script src="/js/article.js"></script>
+<script src="/js/comments.js"></script>
+
 <script>
   tinymce.init({
     selector: "#content-editor",

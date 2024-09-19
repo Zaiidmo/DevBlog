@@ -6,6 +6,7 @@ const session = require("express-session");
 const userrouter = require("./router/auth");
 const forgotPasswordRouter = require('./router/resetPassword');
 const articleRouter = require("./router/article");
+
 const app = express();
 app.use(express.static('src'))
 
@@ -65,6 +66,8 @@ const sequelize = new Sequelize(
     port: process.env.DB_PORT || 3306,
   }
 );
+
+
 
 // Test database connection
 sequelize

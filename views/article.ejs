@@ -34,9 +34,10 @@
             alt="User photo"
           />
           <div class="flex flex-col justify-between">
-            <p class="text-gray-400 font-poppins text-xs">
+            <a href="/profile/<%= article.User ? article.User.id : 'unknown' %>" class="text-gray-400 font-poppins text-xs">
               <%= article.User ? article.User.username : 'Unknown' %>
-            </p>
+            </a>
+            
             <p class="text-gray-400 font-poppins text-xs">
               <%= article.updatedAt %>
             </p>

@@ -74,7 +74,7 @@ sequelize
   .then(() => console.log("Database connection was successful."))
   .catch((error) => console.error("Unable to connect to the database:", error));
 
-// Start the server
+// Start the serv
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });

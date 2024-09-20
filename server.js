@@ -8,8 +8,8 @@ const forgotPasswordRouter = require('./router/resetPassword');
 const articleRouter = require("./router/article");
 const profileRouter = require('./router/profile');
 const avatar = require('./router/uploadAvatar');
-const app = express();
 
+const app = express();
 // Session middleware should be applied before any custom middlewares
 app.use(
   session({
@@ -55,6 +55,8 @@ app.use("/auth", userrouter);
 app.use('/auth', forgotPasswordRouter);
 app.use("/articles", articleRouter);
 app.use("/comments", require("./routes/commentRoutes"));
+
+
 app.get("/", (req, res) => {
   res.render("layout", { title: "Home", body: "home" });
 });
@@ -71,13 +73,15 @@ const sequelize = new Sequelize(
   }
 );
 
+
+
 // Test database connection
 sequelize
   .authenticate()
   .then(() => console.log("Database connection was successful."))
   .catch((error) => console.error("Unable to connect to the database:", error));
 
-// Start the server
+// Start the serv
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });

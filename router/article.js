@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const { Article, User, Like } = require('../models'); // Import the User model along with Article
+const { Article, User, Like,Comment } = require('../models'); // Import the User model along with Article
 const isAuthenticated = require('../middleware/isAuthenticated'); // Require the middleware
 
 // Set up multer for file uploads
@@ -83,6 +83,7 @@ router.post('/creating', isAuthenticated, upload.single('poster'), async (req, r
 // GET - single article by id
 router.get("/:id", isAuthenticated, async (req, res) => {
   try {
+    // Fetch the article by ID and include the author (User)
     const article = await Article.findByPk(req.params.id, {
       include: User // Include User model to get the author's information
     });
@@ -95,17 +96,36 @@ router.get("/:id", isAuthenticated, async (req, res) => {
 
     const isLiked = userLike ? true : false;
 
+    // Fetch the comments related to the article
+    const comments = await Comment.findAll({
+      where: { articleId: article.id },
+      include: [{ model: User, attributes: ['username'] }],
+      order: [['createdAt', 'DESC']]
+    });
+
+    // Format the comments to be passed to the view
+    const formattedComments = comments.map(comment => ({
+      id: comment.id,
+      content: comment.content,
+      createdAt: comment.createdAt,
+      username: comment.User ? comment.User.username : 'Anonymous'
+    }));
+
+    // Render the article view and pass the article, comments, and like status
     res.render("layout", {
       title: "Article",
       body: "article",
       article: article, // Pass the article data
       user: req.session.user, // Pass the session user explicitly
-      isLiked // Pass like status
+      isLiked, // Pass like status
+      comments: formattedComments // Pass the formatted comments
     });
   } catch (err) {
+    console.error('Error displaying article:', err);
     res.status(500).send(err.message);
   }
 });
+
 
 // DELETE - delete article by id
 router.delete("/:id", isAuthenticated, async (req, res) => {

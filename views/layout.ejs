@@ -47,17 +47,17 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor"><path d="M10.55 3c-3.852.007-5.87.102-7.159 1.39C2 5.783 2 8.022 2 12.5s0 6.717 1.391 8.109C4.783 22 7.021 22 11.501 22c4.478 0 6.717 0 8.108-1.391c1.29-1.29 1.384-3.307 1.391-7.16"/><path d="M11.056 13C10.332 3.866 16.802 1.276 21.98 2.164c.209 3.027-1.273 4.16-4.093 4.684c.545.57 1.507 1.286 1.403 2.18c-.074.638-.506.95-1.372 1.576c-1.896 1.37-4.093 2.234-6.863 2.396"/><path d="M9 17c2-5.5 3.96-7.364 6-9"/></g></svg>
               </a
               >
+              <a
+                href="/profile/<%= user.id %>"
+                class="text-black bg-yellow-400 hover:bg-transparent hover:border border-yellow-400 hover:text-white focus:ring-4 focus:ring-primary-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 "
+                >Profile</a
+                >
                 <a
                 href="/auth/logout"
                 class="text-black bg-yellow-400 hover:bg-transparent hover:border border-yellow-400 hover:text-white focus:ring-4 focus:ring-primary-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 "
                 >Log out</a
                 >
                 
-                <a
-                href="/profile"
-                class="text-white hover:bg-yellow-50 hover:text-black focus:ring-4 hover:border border-yellow-400 focus:ring-gray-300 font-medium rounded-xl text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
-                >Profile</a
-                >
 
               <% } else { %>
                 <a
@@ -86,7 +86,6 @@
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                black/80 backdrop-blur-xl
                 <path
                   fill-rule="evenodd"
                   d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
@@ -172,7 +171,6 @@
 </footer>
 
 </body>
-<script src="/js/profile.js"></script>
   <script src="/js/main.js"></script>
   <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
   <script src="https://cdn.tiny.cloud/1/xa9tc8d74n31irheq08faof2hg0jl6i1umdahiksnewrhbad/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>

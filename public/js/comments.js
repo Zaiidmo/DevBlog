@@ -174,25 +174,32 @@ commentsContainer.addEventListener('click', async (e) => {
 });
 
 async function deleteComment(event, commentId) {
-  event.preventDefault(); // Prevent the form from reloading the page
-
-  try {
-      const response = await fetch(`/comments/${commentId}`, {
-          method: 'DELETE'
-      });
-
-      if (!response.ok) {
-          throw new Error(`Error: ${response.statusText}`);
-      }
-
-      // Reload the page to get the latest data from the backend
-      location.reload();
-
-  } catch (error) {
-      console.error('Error deleting comment:', error);
+    event.preventDefault(); // Prevent the form from reloading the page
+  
+    try {
+        const response = await fetch(`/comments/${commentId}`, {
+            method: 'DELETE'
+        });
+  
+        if (!response.ok) {
+            if (response.status === 403) {
+                // Show an alert message if the user is not the author
+                alert('You are not authorized to delete this comment. Only the author of the article can delete it.');
+            } else {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            return; // Stop further execution
+        }
+  
+        // If the deletion is successful, reload the page
+        location.reload();
+  
+    } catch (error) {
+        console.error('Error deleting comment:', error);
+        alert('An error occurred while deleting the comment. Please try again later.');
+    }
   }
-}
-
+  
 
 
 // Initial fetch of comments when the page loads

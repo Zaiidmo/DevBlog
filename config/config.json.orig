@@ -1,0 +1,38 @@
+{
+  "development": {
+<<<<<<< HEAD
+    "username": "vlpha",
+    "password": "1969",
+=======
+    "username": "root",
+    "password": null,
+>>>>>>> ef759db7f3872bb6d2eba5e3b30674de06d88d9b
+    "database": "devblog",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+<<<<<<< HEAD
+    "username": "vlpha",
+    "password": "1969",
+=======
+    "username": "root",
+    "password": null,
+>>>>>>> ef759db7f3872bb6d2eba5e3b30674de06d88d9b
+    "database": "devblog",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+<<<<<<< HEAD
+    "username": "vlpha",
+    "password": "1969",
+=======
+    "username": "root",
+    "password": null,
+>>>>>>> ef759db7f3872bb6d2eba5e3b30674de06d88d9b
+    "database": "devblog",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

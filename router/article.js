@@ -99,7 +99,7 @@ router.get("/:id", isAuthenticated, async (req, res) => {
     // Fetch the comments related to the article
     const comments = await Comment.findAll({
       where: { articleId: article.id },
-      include: [{ model: User, attributes: ['username'] }],
+      include: [{ model: User, attributes: ['username','avatar'] }],
       order: [['createdAt', 'DESC']]
     });
 
@@ -108,8 +108,10 @@ router.get("/:id", isAuthenticated, async (req, res) => {
       id: comment.id,
       content: comment.content,
       createdAt: comment.createdAt,
+      avatar:comment.User.avatar,
       username: comment.User ? comment.User.username : 'Anonymous'
     }));
+    console.log(comments);
 
     // Render the article view and pass the article, comments, and like status
     res.render("layout", {

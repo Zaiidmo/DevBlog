@@ -32,19 +32,42 @@ function checkFileType(file, cb) {
     cb('Error: Images Only!');
   }
 }
-
-// Get all articles
+// Get all articles with pagination
 router.get("/", async (req, res) => {
   try {
+    // Get the page number from the query, default to 1 if not provided
+    const page = parseInt(req.query.page) || 1;
+    // Define the limit (articles per page), e.g., 6 articles per page
+    const limit = 9;
+    const offset = (page - 1) * limit; // Calculate the offset
+
+    // Fetch the total number of articles
+    const totalArticles = await Article.count();
+
+    // Fetch articles with pagination and include the User model
     const articles = await Article.findAll({
-      include: User // Include User model to get the author's information
+      include: User,
+      limit: limit,
+      offset: offset
     });
-    res.render("layout", { title: "Articles", body: "articles", articles });
+
+    // Calculate the total number of pages
+    const totalPages = Math.ceil(totalArticles / limit);
+
+    // Render the view with articles and pagination data
+    res.render("layout", {
+      title: "Articles",
+      body: "articles",
+      articles,
+      currentPage: page,
+      totalPages: totalPages
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send('Server Error');
   }
 });
+
 
 // GET - create article form
 router.get("/create-article", isAuthenticated, (req, res) => {

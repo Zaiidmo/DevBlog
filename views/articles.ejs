@@ -31,7 +31,7 @@
             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
             >Search</label
           >
-          <div class="relative">
+          <div class="relative z-1">
             <div
               class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
             >
@@ -71,24 +71,25 @@
   </section>
 
 <section class="py-10 bg-gray-700">
+  <% if (articles.length > 0) { %>
   <div
     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-screen-xl mx-auto gap-8">
     <!-- Grid Items -->
     <% articles.forEach(article => { %>
-    <div
-      class="max-w-sm border rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div
+      class="max-w-sm  border  rounded-lg shadow bg-gray-800 border-gray-700">
       <a href="/articles/<%= article.id %>">
         <img class="rounded-t-lg" src="<%= article.poster %>" alt="" />
       </a>
       <div class="p-5">
         <a href="/articles/<%= article.id %>">
           <h5
-            class="mb-2 text-2xl font-bold font-bruno tracking-tight text-gray-900 dark:text-white"
+            class="mb-2 text-2xl font-bold font-bruno tracking-tight text-white"
           >
           <%= article.title %>
           </h5>
         </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-ellipsis overflow-hidden whitespace-nowrap w-full">
+        <p class="mb-3 font-normal text-gray-400 text-ellipsis overflow-hidden whitespace-nowrap w-full">
           <%= article.description %>
         </p>
         
@@ -115,6 +116,13 @@
         </a>
       </div>
     </div>
-    <% }) %>
+    <% }); %>
   </div>
+  <% } else { %>
+  <div class="text-center">
+    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+      No articles found
+    </h2>
+  </div>
+  <% } %>
 </section>

@@ -1,0 +1,247 @@
+<div class="bg-[#0C172C] w-full md:h-full h-full mx-auto py-12">
+    <div class="container mx-auto py-8 h-full max-w-screen-xl px-4 pt-12">
+        <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4 h-full">
+
+            <div class="col-span-4 sm:col-span-3">
+                <div class="bg-gray-800 shadow rounded-lg p-6">
+                    <div class="flex flex-col items-center">
+                        <div class="avatar-wrapper relative">
+
+                           <!-- Avatar upload input -->
+
+
+                           <div class="avatar-wrapper relative"> 
+                            <img id="avatarImage" src="<%= user.avatar || '' %>" alt="User Avatar" class="w-32 h-32 rounded-full object-cover">
+                            <% if (currentUser && currentUser.id === user.id) { %> 
+                            <label for="avatarUpload" class="absolute bottom-0 right-0 bg-gray-800 text-white p-2 rounded-full cursor-pointer">
+                                <i class="fas fa-camera"></i>
+                            </label>
+                            
+                            <input type="file" id="avatarUpload" name="avatar" class="hidden" onchange="handleAvatarUpload(event)">
+                            <% } %>
+                        </div>
+                        
+                        <!-- Popup for image confirmation with form -->
+                        <div id="confirmPopup" class="fixed flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+                            <div class="bg-[#0C172C]  p-4 rounded-lg border-yellow-500 border-1">
+                                <h2 class="text-lg font-bold mb-4 text-white">Confirm Image Upload</h2>
+                                
+                                <!-- Preview Image -->
+                                <img id="previewImage" src="" alt="Preview" class="w-32 h-32 mb-4 object-cover">
+                                
+                                <!-- Form to save the changes -->
+                                <form id="avatarForm" action="/update-avatar" method="POST" enctype="multipart/form-data" accept=".jpg,.jpeg,.png" >
+                                    <input type="file" id="avatarFileInput" name="avatar" class="hidden">
+                                    
+                                    <div class="flex justify-end">
+                                        <button id="confirmButton" type="submit" name="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 mr-2">Confirm</button>
+                                        <button id="cancelButton" type="button" class="bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-700">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                   
+                        </div>
+                        <h1 class="text-xl font-bold text-white"><%= user.username %></h1>
+                        <p class="text-white"><%= user.jobTitle || 'developeur full stack' %></p>
+                        <a href="mailto:<%= user.email %>" class="text-yellow-400"><%= user.email %></a>
+
+                        <div class="mt-6 flex flex-wrap gap-4 justify-center">
+                             <!-- Conditionally render the Edit Profile button -->
+                        <% if (currentUser && currentUser.id === user.id) { %>
+                            <button id="openContactForm" class="text-black bg-yellow-400 hover:bg-transparent hover:border border-yellow-400 hover:text-white py-2 px-4 rounded mt-4">
+                                Edit Profile
+                            </button>
+                        <% } %>
+
+                        </div>
+                        
+              
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-span-4 sm:col-span-9">
+                <div class="bg-gray-800 shadow rounded-lg p-6">
+                    <h2 class="text-xl font-bold mb-4 text-yellow-400">About Me</h2>
+                    <% if (user.aboutMe) { %>
+                        <p class="text-white"><%= user.aboutMe %></p>
+                    <% } else { %>
+                        <p class="text-white">Not available</p>
+                    <% } %>
+
+                    <h2 class="text-xl font-bold mt-6 mb-4 text-yellow-400">Skills</h2>
+                    <ul>
+                        <% if (user.skills && Array.isArray(user.skills) && user.skills.length > 0) { %>
+                          <% user.skills.forEach(function(skill) { %>
+                            <li class="mb-2 text-white"><%= skill %></li>
+                          <% }); %>
+                        <% } else { %>
+                          <li class="mb-2 text-white">No skills listed</li>
+                        <% } %>
+                      </ul>
+                      
+
+                    <h2 class="text-xl font-bold mt-6 mb-4 text-yellow-400">Social Media</h2>
+                    <div class="flex justify-center items-center gap-6 my-6">
+                        <% if (user.socialMedia && typeof user.socialMedia === 'object') { %>
+                            <% for (const [platform, url] of Object.entries(user.socialMedia)) { %>
+                              <a class="text-white hover:text-orange-600" href="<%= url %>" target="_blank">
+                                <%= platform %>
+                              </a>
+                            <% } %>
+                          <% } else { %>
+                            <p>No social media links</p>
+                          <% } %>
+                    </div>
+                        <!-- New Articles Section -->
+
+            <h2 class="text-xl font-bold mb-4 text-yellow-400">Articles</h2>
+            <% if (user.articles && user.articles.length > 0) { %>
+                
+                  
+                        
+                            <div
+                              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-screen-xl mx-auto gap-8">
+                              <!-- Grid Items -->
+                              <% user.articles.forEach(function(article) { %>
+                              <div
+                                class="max-w-sm  border  rounded-lg shadow bg-gray-800 border-gray-700">
+                                <a href="/articles/<%= article.id %>">
+                                  <img class="rounded-t-lg" src="<%= article.poster %>" alt="" />
+                                </a>
+                                <div class="p-5">
+                                  <a href="/articles/<%= article.id %>">
+                                    <h5
+                                      class="mb-2 text-2xl font-bold font-bruno tracking-tight text-gray-900 dark:text-white"
+                                    >
+                                    <%= article.title %>
+                                    </h5>
+                                  </a>
+                                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-ellipsis overflow-hidden whitespace-nowrap w-full">
+                                    <%= article.description %>
+                                  </p>
+                                  
+                                  <a
+                                    href="/articles/<%= article.id %>"
+                                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-black bg-yellow-400 rounded-lg hover:bg-yellow-800 "
+                                  >
+                                    Read more
+                                    <svg
+                                      class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                                      aria-hidden="true"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 14 10"
+                                    >
+                                      <path
+                                        stroke="currentColor"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M1 5h12m0 0L9 1m4 4L9 9"
+                                      />
+                                    </svg>
+                                  </a>
+                                </div>
+                              </div>
+                              <% }); %>
+                            </div>
+                      
+
+                  
+                
+            <% } else { %>
+                <p class="text-white">No articles available.</p>
+            <% } %>
+        </div>
+                </div>
+            
+
+         
+            
+        </div>
+    </div>
+</div>
+
+<!-- Modal for updating profile -->
+<div id="contactFormModal" class="fixed z-10 inset-0 overflow-y-auto mt-12 hidden ">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-gray-700 w-1/2 p-6 rounded shadow-md">
+            <div class="flex justify-end">
+                <!-- Close Button -->
+                <button id="closeContactForm" class="text-white hover:text-yellow-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <h2 class="text-2xl font-bold mb-4">Update Profile</h2>
+
+            <form action="update" method="post">
+                <div class="mb-4">
+                    <label for="username" class="block text-white text-sm font-bold mb-2">Username</label>
+                    <input type="text" id="username" name="username" value="<%= user.username %>"
+                           class="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-white text-sm font-bold mb-2">Email</label>
+                    <input type="email" id="email" name="email" value="<%= user.email %>"
+                           class="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="jobTitle" class="block text-white text-sm font-bold mb-2">Job Title</label>
+                    <input type="text" id="jobTitle" name="jobTitle" value="<%= user.jobTitle || 'developeur full stack' %>"
+                           class="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="aboutMe" class="block text-white text-sm font-bold mb-2">About Me</label>
+                    <textarea id="aboutMe" name="aboutMe" class="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"><%= user.aboutMe %></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="socialMedia" class="block text-white text-sm font-bold mb-2">Social Media Links</label>
+                    <ul id="socialMediaList" class="space-y-2">
+                        <!-- Liste des liens sociaux existants -->
+                        <% if (user.socialMedia) { %>
+                            <% Object.keys(user.socialMedia).forEach(function(platform) { %>
+                                <li class="flex items-center gap-2">
+                                    <input type="text" name="socialMedia[<%= platform %>]" value="<%= user.socialMedia[platform] %>" 
+
+                                           class="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500" placeholder="Enter link">
+                                    <span class="text-gray-500"><%= platform %></span>
+                                    <button type="button" class="remove-btn text-red-500">✘</button>
+                                </li>
+                            <% }); %>
+                        <% } %>
+                    </ul>
+                    <button type="button" id="addSocialMedia" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 mt-4">
+                        <i class="fas fa-plus"></i> Add Platform
+                    </button>
+                </div>
+                <div class="mb-4">
+                    <label for="skills" class="block text-white text-sm font-bold mb-2">Skills</label>
+                    <div id="skillsContainer">
+                        <% if (user.skills && Array.isArray(user.skills)) { %>
+                            <% user.skills.forEach(skill => { %>
+                                <div class="mb-2">
+                                    <input type="text" name="skills[]" value="<%= skill %>"
+                                           class="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500">
+                                </div>
+                            <% }); %>
+                        <% } %>
+                        <div class="mb-2">
+                            <input type="text" id="newSkill" placeholder="New Skill" class="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500">
+                            <button type="button" onclick="addSkill()" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">
+                                Add Skill
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">
+                    Save Changes
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

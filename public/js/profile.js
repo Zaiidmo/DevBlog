@@ -116,3 +116,21 @@ document.addEventListener('click', function(e) {
         e.target.parentElement.remove();
     }
 });
+
+document.getElementById('avatarForm').addEventListener('submit', function (e) {
+    const fileInput = document.getElementById('avatarFileInput');
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert("Please select an image file.");
+        e.preventDefault();  // Prevent form submission
+        return;
+    }
+
+    // Check the file type
+    const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    if (!validImageTypes.includes(file.type)) {
+        alert("Please upload a valid image file (JPEG or PNG).");
+        e.preventDefault();  // Prevent form submission
+    }
+});

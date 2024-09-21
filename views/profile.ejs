@@ -30,7 +30,7 @@
                                 <img id="previewImage" src="" alt="Preview" class="w-32 h-32 mb-4 object-cover">
                                 
                                 <!-- Form to save the changes -->
-                                <form id="avatarForm" action="/update-avatar" method="POST" enctype="multipart/form-data" >
+                                <form id="avatarForm" action="/update-avatar" method="POST" enctype="multipart/form-data" accept=".jpg,.jpeg,.png" >
                                     <input type="file" id="avatarFileInput" name="avatar" class="hidden">
                                     
                                     <div class="flex justify-end">
@@ -100,14 +100,14 @@
             <h2 class="text-xl font-bold mb-4 text-yellow-400">Articles</h2>
             <% if (user.articles && user.articles.length > 0) { %>
                 
-                    <% user.articles.forEach(function(article) { %>
+                  
                         
                             <div
                               class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-screen-xl mx-auto gap-8">
                               <!-- Grid Items -->
-                    
+                              <% user.articles.forEach(function(article) { %>
                               <div
-                                class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                class="max-w-sm  border  rounded-lg shadow bg-gray-800 border-gray-700">
                                 <a href="/articles/<%= article.id %>">
                                   <img class="rounded-t-lg" src="<%= article.poster %>" alt="" />
                                 </a>
@@ -146,11 +146,11 @@
                                   </a>
                                 </div>
                               </div>
-                            
+                              <% }); %>
                             </div>
                       
 
-                    <% }); %>
+                  
                 
             <% } else { %>
                 <p class="text-white">No articles available.</p>

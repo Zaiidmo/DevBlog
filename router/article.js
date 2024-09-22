@@ -248,4 +248,31 @@ router.post('/:id/toggle-like', isAuthenticated, async (req, res) => {
   }
 });
 
+// Route for searching articles
+router.get("/search", async (req, res) => {
+  try {
+    const { query } = req.query;
+    
+    if (!query) {
+      return res.json({ articles: [] }); // Return empty array if no query
+    }
+
+    // Find articles that match the search query in title or description
+    const articles = await Article.findAll({
+      where: {
+        [Op.or]: [
+          { title: { [Op.like]: `%${query}%` } },
+          { description: { [Op.like]: `%${query}%` } }
+        ]
+      }
+    });
+
+    res.json({ articles });
+  } catch (error) {
+    console.error('Search error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
 module.exports = router;

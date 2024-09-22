@@ -104,25 +104,31 @@ router.post('/creating', isAuthenticated, upload.single('poster'), async (req, r
 });
 
 // GET - single article by id
-router.get("/:id", isAuthenticated, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     // Fetch the article by ID and include the author (User)
     const article = await Article.findByPk(req.params.id, {
       include: User // Include User model to get the author's information
     });
 
-    // Check if the current user has liked the article
-    const userId = req.session.user.id;
-    const userLike = await Like.findOne({
-      where: { userId, articleId: article.id }
-    });
+    let isLiked = false;
+    let userId = null;
+    let userLike = null;
 
-    const isLiked = userLike ? true : false;
+    // Check if the user is logged in (authenticated)
+    if (req.session && req.session.user) {
+      userId = req.session.user.id;
+      // Check if the user has liked the article
+      userLike = await Like.findOne({
+        where: { userId, articleId: article.id }
+      });
+      isLiked = userLike ? true : false;
+    }
 
     // Fetch the comments related to the article
     const comments = await Comment.findAll({
       where: { articleId: article.id },
-      include: [{ model: User, attributes: ['username','avatar'] }],
+      include: [{ model: User, attributes: ['username', 'avatar'] }],
       order: [['createdAt', 'DESC']]
     });
 
@@ -131,18 +137,17 @@ router.get("/:id", isAuthenticated, async (req, res) => {
       id: comment.id,
       content: comment.content,
       createdAt: comment.createdAt,
-      avatar:comment.User.avatar,
+      avatar: comment.User.avatar,
       username: comment.User ? comment.User.username : 'Anonymous'
     }));
-    console.log(comments);
 
     // Render the article view and pass the article, comments, and like status
     res.render("layout", {
       title: "Article",
       body: "article",
       article: article, // Pass the article data
-      user: req.session.user, // Pass the session user explicitly
-      isLiked, // Pass like status
+      user: req.session.user || null, // Pass the session user (null if not logged in)
+      isLiked, // Pass like status (false if not logged in)
       comments: formattedComments // Pass the formatted comments
     });
   } catch (err) {
@@ -150,6 +155,7 @@ router.get("/:id", isAuthenticated, async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+
 
 
 // DELETE - delete article by id

@@ -1,4 +1,5 @@
 const express = require("express");
+const { Op } = require('sequelize');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
@@ -248,16 +249,15 @@ router.post('/:id/toggle-like', isAuthenticated, async (req, res) => {
   }
 });
 
-// Route for searching articles
-router.get("/search", async (req, res) => {
+/// Search articles route
+router.get('/search', async (req, res) => {
   try {
-    const { query } = req.query;
-    
+    const query = req.query.query;
+
     if (!query) {
-      return res.json({ articles: [] }); // Return empty array if no query
+      return res.status(400).json({ error: 'Query is required' });
     }
 
-    // Find articles that match the search query in title or description
     const articles = await Article.findAll({
       where: {
         [Op.or]: [
@@ -269,10 +269,9 @@ router.get("/search", async (req, res) => {
 
     res.json({ articles });
   } catch (error) {
-    console.error('Search error:', error);
+    console.error('Error during search:', error);
     res.status(500).json({ error: 'Server error' });
   }
 });
-
 
 module.exports = router;

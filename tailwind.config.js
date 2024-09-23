@@ -1,12 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/views/**/*.html',  
+    './views/**/*.ejs',  
     './public/js/**/*.js',
     './public/css/**/*.css',  
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'poppins': 'poppins',
+        'logo': 'Kaushan Script',
+        'bruno': 'Bruno Ace SC',
+      },
+    },
   },
   plugins: [],
 }

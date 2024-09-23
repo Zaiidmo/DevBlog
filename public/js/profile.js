@@ -117,20 +117,33 @@ document.addEventListener('click', function(e) {
     }
 });
 
+
 document.getElementById('avatarForm').addEventListener('submit', function (e) {
     const fileInput = document.getElementById('avatarFileInput');
     const file = fileInput.files[0];
 
     if (!file) {
-        alert("Please select an image file.");
         e.preventDefault();  // Prevent form submission
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please select an image file!',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Okay'
+        });
         return;
     }
 
     // Check the file type
     const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg'];
     if (!validImageTypes.includes(file.type)) {
-        alert("Please upload a valid image file (JPEG or PNG).");
         e.preventDefault();  // Prevent form submission
+        Swal.fire({
+            icon: 'error',
+            title: 'Invalid file type',
+            text: 'Please upload a valid image file (JPEG or PNG).',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Okay'
+        });
     }
 });

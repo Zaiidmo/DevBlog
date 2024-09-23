@@ -8,8 +8,6 @@
                         <div class="avatar-wrapper relative">
 
                            <!-- Avatar upload input -->
-
-
                            <div class="avatar-wrapper relative"> 
                             <img id="avatarImage" src="<%= user.avatar || '' %>" alt="User Avatar" class="w-32 h-32 rounded-full object-cover">
                             <% if (currentUser && currentUser.id === user.id) { %> 
@@ -109,17 +107,17 @@
                               <div
                                 class="max-w-sm  border  rounded-lg shadow bg-gray-800 border-gray-700">
                                 <a href="/articles/<%= article.id %>">
-                                  <img class="rounded-t-lg" src="<%= article.poster %>" alt="" />
+                                  <img class="rounded-t-lg w-full" src="<%= article.poster %>" alt="" />
                                 </a>
                                 <div class="p-5">
                                   <a href="/articles/<%= article.id %>">
                                     <h5
-                                      class="mb-2 text-2xl font-bold font-bruno tracking-tight text-gray-900 dark:text-white"
+                                      class="mb-2 text-2xl font-bold font-bruno tracking-tight text-white"
                                     >
                                     <%= article.title %>
                                     </h5>
                                   </a>
-                                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-ellipsis overflow-hidden whitespace-nowrap w-full">
+                                  <p class="mb-3 font-normal text-gray-400 text-ellipsis overflow-hidden whitespace-nowrap w-full">
                                     <%= article.description %>
                                   </p>
                                   
@@ -247,4 +245,6 @@
 </div>
 
 <script src="/js/profile.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

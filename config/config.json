@@ -1,21 +1,21 @@
 {
   "development": {
-    "username": "vlpha",
-    "password": "1969",
+    "username": "root",
+    "password": "null",
     "database": "devblog",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
-    "username": "vlpha",
-    "password": "1969",
+    "username": "root",
+    "password": "null",
     "database": "devblog",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
-    "username": "vlpha",
-    "password": "1969",
+    "username": "root",
+    "password": "null",
     "database": "devblog",
     "host": "127.0.0.1",
     "dialect": "mysql"

@@ -37,7 +37,7 @@ router.get("/", async (req, res) => {
   try {
     // Get the page number from the query, default to 1 if not provided
     const page = parseInt(req.query.page) || 1;
-    // Define the limit (articles per page), e.g., 6 articles per page
+    // Define the limit (articles per page), 
     const limit = 9;
     const offset = (page - 1) * limit; // Calculate the offset
 

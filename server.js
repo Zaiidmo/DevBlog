@@ -74,7 +74,7 @@ app.use("/articles", articleRouter);
 app.use("/comments", require("./routes/commentRoutes"));
 
 // Home route
-const Article = require("./models/article");
+const { Article } = require("./models");
 
 app.get("/", async (req, res) => {
   try {

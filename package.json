@@ -2,9 +2,10 @@
   "scripts": {
     "start": "nodemon server.js",
     "build": "tailwindcss -i ./src/css/styles.css -o ./public/css/output.css --watch",
-    "debug":"ndb server.js"
+    "debug": "ndb server.js"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^43.1.0",
     "autoprefixer": "^10.4.20",
     "bcrypt": "^5.1.1",
     "debug": "^4.3.7",

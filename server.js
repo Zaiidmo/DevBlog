@@ -82,6 +82,6 @@ sequelize
   .catch((error) => console.error("Unable to connect to the database:", error));
 
 // Start the serv
-app.listen(3000, () => {
+app.listen(3001, () => {
   console.log("Server is running on port 3000");
 });

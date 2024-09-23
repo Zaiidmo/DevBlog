@@ -125,3 +125,9 @@ if (updateButton && editModal && closeBtn && cancelBtn && updateArticleForm) {
     }
   });
 }
+// Close modals on click ESC
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    editModal.classList.add("hidden");
+  }
+});
